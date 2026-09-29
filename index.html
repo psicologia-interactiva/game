@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
-<title>Volver a Nosotros</title>
+<title>Mi Brújula Emocional</title>
 <style>
 :root{
   --bg:#fbf6ef; --surface:#ffffff; --surface2:#f3ece3; --text:#2b2520; --muted:#6f655b; --line:#eadfd2;
@@ -192,6 +192,48 @@ label.f,.f{display:block;font-weight:800;margin:16px 0 6px}
 .legend{display:flex;gap:16px;font-size:13px;color:var(--muted);font-weight:700;margin-bottom:6px}
 .legend i{display:inline-block;width:14px;height:3px;border-radius:2px;margin-right:6px;vertical-align:middle}
 .chip.static{cursor:default}
+.mpad{position:relative;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:4px;aspect-ratio:1.2;width:calc(100% - 48px);max-width:400px;margin:28px auto 0;padding:0 0 0 0;touch-action:none;cursor:crosshair;user-select:none;-webkit-user-select:none}
+.mq{border-radius:14px;background:color-mix(in srgb,var(--qc) 55%,var(--surface));display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:8px;font-size:12.5px;color:#2b2520;font-weight:600;pointer-events:none}
+.mq b{font-size:20px}
+.mq.rojo{border-top-left-radius:26px}.mq.amarillo{border-top-right-radius:26px}.mq.azul{border-bottom-left-radius:26px}.mq.verde{border-bottom-right-radius:26px}
+.max{position:absolute;font-size:11px;font-weight:800;color:var(--muted);pointer-events:none;white-space:nowrap}
+.max.y{top:-22px;left:50%;transform:translateX(-50%)}.max.y2{bottom:-22px;left:50%;transform:translateX(-50%)}
+.max.x{left:-21px;top:50%;writing-mode:vertical-rl;transform:translateY(-50%) rotate(180deg)}.max.x2{right:-21px;top:50%;writing-mode:vertical-rl;transform:translateY(-50%)}
+.mdot{position:absolute;width:30px;height:30px;margin:-15px 0 0 -15px;border-radius:50%;background:#fff;border:4px solid #2b2520;box-shadow:0 3px 12px rgba(0,0,0,.3);pointer-events:none;transition:left .15s,top .15s;animation:pop .35s}
+#mlbl{margin-top:30px!important;font-weight:800}
+.qchip{display:inline-block!important;margin-top:6px;padding:3px 10px;border-radius:99px;background:color-mix(in srgb,var(--qc) 45%,var(--surface));color:#2b2520!important;font-size:12.5px!important}
+.outgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.outb{appearance:none;border:2px solid var(--line);background:var(--surface);border-radius:16px;padding:10px;display:flex;gap:8px;align-items:center;text-align:left;font-size:14px;font-weight:600;cursor:pointer;min-height:54px;transition:transform .2s cubic-bezier(.34,1.8,.64,1)}
+.outb span{font-size:24px}
+.outb:active{transform:scale(.95)}
+.outb[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.dists{display:grid;gap:8px}
+.dist{appearance:none;text-align:left;border:2px solid var(--line);background:var(--surface);border-radius:14px;padding:10px 12px;cursor:pointer;display:flex;flex-direction:column;gap:2px}
+.dist b{font-size:15px}.dist span{font-size:13.5px;color:var(--muted)}
+.dist.sug{border-color:var(--warm)}
+.dist[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.tools{display:grid;gap:10px}
+.tool{background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden;transition:border-color .3s}
+.tool.done{border-color:var(--good)}
+.tool-h{appearance:none;border:0;background:none;width:100%;display:flex;gap:12px;align-items:center;text-align:left;padding:14px;cursor:pointer}
+.tool .ti{font-size:26px;width:46px;height:46px;border-radius:14px;background:var(--surface2);display:grid;place-items:center;flex:none}
+.tool .tt{flex:1;min-width:0}.tool .tt b{display:block;font-size:16px}.tool .tt small{display:block;color:var(--muted);font-size:13.5px;line-height:1.35}
+.tool .tt em{display:block;font-style:normal;color:var(--warm);font-size:12.5px;font-weight:800;margin-top:3px}
+.tool .tdone{font-size:20px;font-weight:900;color:var(--muted)}
+.tool.done .tdone{color:var(--good)}
+.tool-b{padding:0 14px 16px}
+.tprog{display:flex;gap:4px;margin-bottom:10px}.tprog i{flex:1;height:5px;border-radius:9px;background:var(--line)}.tprog i.on{background:var(--accent)}
+.tlist{list-style:none;padding:0;margin:0}
+.gbig{font-size:48px}
+.gdots{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:6px}
+.gdot{appearance:none;width:44px;height:44px;border-radius:50%;border:3px solid var(--accent);background:transparent;cursor:pointer;transition:transform .2s}
+.gdot.on{background:var(--accent);transform:scale(.9)}
+.river{position:relative;height:74px;border-radius:16px;background:linear-gradient(180deg,#bfe3ff,#6fb2e6);overflow:hidden;margin:6px 0 10px}
+.leaf{position:absolute;left:12px;top:20px;background:#fff;color:#2b2520;border-radius:99px;padding:6px 14px;font-weight:700;font-size:14px;max-width:85%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;animation:bob 2s ease-in-out infinite}
+.leaf.go{transition:transform 2.2s ease-in,opacity 2.2s;transform:translateX(120%) rotate(8deg);opacity:0}
+@keyframes bob{50%{transform:translateY(-4px) rotate(-2deg)}}
+.crisis{border:2px solid var(--bad);background:color-mix(in srgb,var(--bad) 8%,var(--surface))}
+.crisis a{font-weight:800}
 /* entrada de pantallas */
 .enter>*{animation:rise .5s cubic-bezier(.2,.8,.2,1) both}
 .enter.fwd>*{animation-name:inR}.enter.back>*{animation-name:inL}
@@ -341,7 +383,7 @@ label.f,.f{display:block;font-weight:800;margin:16px 0 6px}
 .ice svg.berg{position:absolute;inset:0;width:100%;height:100%}
 .ice .wave{position:absolute;left:-50%;width:200%;top:calc(27% - 6px);height:12px;animation:wave 6s linear infinite}
 @keyframes wave{to{transform:translateX(25%)}}
-.ice .lbl{position:absolute;left:50%;transform:translateX(-50%);background:#fff;color:#2b2520;border-radius:99px;padding:5px 12px;font-weight:800;font-size:14px;white-space:nowrap;max-width:92%;overflow:hidden;text-overflow:ellipsis;box-shadow:0 4px 12px rgba(0,0,0,.18);animation:rise .6s both}
+.ice .lbl{position:absolute;left:0;right:0;margin:0 auto;width:max-content;background:#fff;color:#2b2520;border-radius:99px;padding:5px 12px;font-weight:800;font-size:14px;white-space:nowrap;max-width:92%;overflow:hidden;text-overflow:ellipsis;box-shadow:0 4px 12px rgba(0,0,0,.18);animation:rise .6s both}
 .ice .cap{position:absolute;left:12px;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
 .ice .cap.a{top:8px;color:#2d5e80}.ice .cap.b{top:calc(27% + 10px);color:#d6ecff}
 /* traductor */
@@ -466,11 +508,11 @@ a{color:var(--accent)}
 <header class="top">
   <div class="top-in">
     <div class="brand">
-      <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="12" r="6.5" fill="none" stroke="var(--pA)" stroke-width="2.4"/><circle cx="15" cy="12" r="6.5" fill="none" stroke="var(--pB)" stroke-width="2.4"/></svg>
-      <span>Volver a Nosotros</span>
+      <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="var(--pA)" stroke-width="2"/><path d="M12 4.5 L14.2 12 L12 19.5 L9.8 12Z" fill="var(--pB)"/><path d="M12 12 L14.2 12 L12 19.5 L9.8 12Z" fill="var(--pA)"/><circle cx="12" cy="12" r="1.3" fill="var(--bg)"/></svg>
+      <span>Mi Brújula Emocional</span>
     </div>
     <button class="tbtn" id="xp" type="button" aria-label="Corazones de conexión">💗 <b id="xpN">0</b></button>
-    <button class="tbtn" id="wheelBtn" type="button" aria-label="Rueda de emociones">🎡</button>
+    <button class="tbtn" id="wheelBtn" type="button" aria-label="Caja de herramientas">🧰</button>
     <button class="tbtn" id="patBtn" type="button" aria-label="Mis patrones">📊</button>
     <button class="tbtn pause" id="pauseBtn" type="button">Pausa</button>
     <button class="tbtn" id="themeBtn" type="button" aria-label="Cambiar tema">◐</button>
@@ -610,6 +652,8 @@ function loop(){
 }
 const BADGES={
   calma:['🌬️','Pulmones zen','Completaste una respiración guiada'],
+  caja:['🧰','Caja de herramientas','Probaste 3 herramientas distintas'],
+  reencuadre:['🧠','Detective de pensamientos','Escribiste un pensamiento más equilibrado'],
   deck:['🧠','Detector de historias','Acertaste todo en «¿Hecho o historia?»'],
   camara:['🎥','Ojo de cámara','Describiste lo que pasó sin juicios'],
   traductor:['🔁','Traductor del corazón','Convertiste un ataque en una necesidad'],
@@ -743,9 +787,9 @@ const EMO_RE=(()=>{const stems=new Set(['triste','miedo','dolid','herid','soleda
   return new RegExp('('+[...stems].join('|')+')');})();
 
 /* ================= estado ================= */
-const KEY='volver-nosotros-v3',HKEY='volver-nosotros-historial',TKEY='volver-nosotros-tema';
-function newPerson(){return{name:'',g:null,body:[],trig:'',thought:'',care:[],express:null,msg:'',msgEdited:false,t0:null,t1:null,tEnd:null,breathed:false,now:null,camera:'',story:'',trans:[],dig:{surf:null,deep:null,l4:'',l4x:'',origin:'',step:0},needs:[],request:'',script:'',scriptEdited:false,lugar:{did:'',feel:null,feelX:'',sense:''},appr:''};}
-function fresh(){return{mode:null,rel:'pareja',first:0,rules:[false,false,false],people:[newPerson(),newPerson()],step:0,maxStep:0,mirror:[null,null],agree:{what:'',when:'',check:'',ok:[false,false]},pauseUntil:null,repair:'',xp:0,aw:{},badges:[],seen:[]};}
+const KEY='volver-nosotros-v3',HKEY='volver-nosotros-historial',TKEY='volver-nosotros-tema'; /* claves internas: se mantienen para no perder el historial */
+function newPerson(){return{name:'',g:null,mood:null,out:[],under:null,istep:null,dist:[],evFor:'',evAgainst:'',balanced:'',fits:null,tools:[],journal:'',values:[],valAct:'',savor:[],please:null,nurture:'',body:[],trig:'',thought:'',care:[],express:null,msg:'',msgEdited:false,t0:null,t1:null,tEnd:null,breathed:false,now:null,camera:'',story:'',trans:[],dig:{surf:null,deep:null,l4:'',l4x:'',origin:'',step:0},needs:[],request:'',script:'',scriptEdited:false,lugar:{did:'',feel:null,feelX:'',sense:''},appr:''};}
+function fresh(){return{mode:null,rel:'pareja',first:0,rules:[false,false,false],people:[newPerson(),newPerson()],step:0,maxStep:0,mirror:[null,null],agree:{what:'',when:'',check:'',ok:[false,false]},pauseUntil:null,repair:'',xp:0,aw:{},badges:[],seen:[],toolsUsed:[]};}
 let S=store.get(KEY);
 if(!S||!Array.isArray(S.people)||S.people.length!==2)S=fresh();
 S=Object.assign(fresh(),S);
@@ -759,24 +803,29 @@ const TR_STATE=[null,null];
 function fearWord(d,g){if(d.l4x)return d.l4x.replace(/^que\s+/i,'');return d.l4?gx(d.l4,g):'';}
 function fearScript(d){if(d.l4x)return'que '+d.l4x.replace(/^que\s+/i,'');const f=L4.find(x=>x.t===d.l4);return f?f.s:'';}
 const deepNoun=i=>{const d=P(i).dig;return d.deep?selWord(d.deep,P(i).g).toLowerCase():'';};
-function keepAndReset(mode=null){const keep=S.people.map(p=>({name:p.name,g:p.g}));const{xp,badges,seen,aw,rel}=S;S=fresh();Object.assign(S,{xp,badges,seen,aw,mode,rel});keep.forEach((x,i)=>Object.assign(S.people[i],x));TR_STATE[0]=TR_STATE[1]=null;save();}
+function keepAndReset(mode=null){const keep=S.people.map(p=>({name:p.name,g:p.g}));const{xp,badges,seen,aw,rel,toolsUsed}=S;S=fresh();Object.assign(S,{xp,badges,seen,aw,mode,rel,toolsUsed:toolsUsed||[]});keep.forEach((x,i)=>Object.assign(S.people[i],x));TR_STATE[0]=TR_STATE[1]=null;save();}
 
 const MOMENTS={
-  diario:{i:'📓',tag:'Día a día',t:'¿Cómo me siento hoy?',d:'Registra una emoción, entiende qué te pide y, si quieres, prepara cómo decírselo a alguien. 3 a 5 minutos.'},
+  diario:{i:'🧭',tag:'Día a día · a fondo',t:'Explorar cómo me siento',d:'Lo que muestras y lo que sientes por dentro, tus pensamientos, lo que necesitas y herramientas para regularte. Termina en un informe. 8 a 12 minutos.'},
+  rapido:{i:'⚡',tag:'Día a día · rápido',t:'Registro rápido',d:'Nombra lo que sientes y recibe un siguiente paso. 1 a 2 minutos.'},
   sos:{i:'🔥',tag:'Durante',t:'Estoy en plena discusión',d:'Para frenar antes de decir algo que duela, con quien sea. 3 a 5 minutos.'},
   solo:{i:'🔍',tag:'Después',t:'Pasó algo y quiero entenderlo',d:'Un conflicto con tu pareja, familia, trabajo o amistades. Te da un informe y te ayuda a expresarlo. 10 a 15 minutos.'},
   juntos:{i:'💬',tag:'Reparar',t:'Queremos hablarlo juntos',d:'Dos personas, un celular, por turnos, cuando ambas están algo más en calma. 20 a 30 minutos.'}
 };
 function steps(){
   if(!S.mode)return['inicio'];
-  if(S.mode==='diario')return['inicio','quien','temp:0','nombrar:0','contexto:0','cuido:0','informe:0'];
+  if(S.mode==='diario')return['inicio','quien','temp:0','iceberg:0','contexto:0','pensamiento:0','cuido:0','herramientas:0','informe:0'];
+  if(S.mode==='rapido')return['inicio','quien','temp:0','nombrar:0','informe:0'];
   if(S.mode==='sos')return['inicio','quien','temp:0','nombrar:0','traductor:0','plan'];
   if(S.mode==='solo')return['inicio','quien','temp:0','hechos:0','traductor:0','excavador:0','lugar:0','guion:0','informe:0'];
   const a=S.first,b=1-a,per=i=>[`turno:${i}`,`hechos:${i}`,`excavador:${i}`,`guion:${i}`];
   return['inicio','quien','temp2',...per(a),...per(b),`espejo:${a}`,`espejo:${b}`,'acuerdo','cierre'];
 }
-const ICON={contexto:['🌱','Qué lo provocó'],cuido:['💚','Qué necesito'],informe:['📋','Tu informe'],inicio:['🏠','Inicio'],quien:['👤','Quiénes'],turno:['📱','Cambio de turno'],temp:['🌡️','Temperatura'],temp2:['🌡️','Temperatura'],hechos:['🎥','Qué pasó'],traductor:['🔁','Traductor'],excavador:['🧊','Iceberg'],nombrar:['🏷️','Nombrar'],plan:['🧭','Plan'],lugar:['🔄','Cambio de lugar'],guion:['🗣️','Mensaje'],espejo:['🪞','Cambio de lugar'],acuerdo:['🤝','Acuerdo'],cierre:['🏁','Cierre']};
+const ICON={iceberg:['🎭','Fuera y dentro'],pensamiento:['🧠','Pensamiento'],herramientas:['🧰','Herramientas'],contexto:['🌱','Qué lo provocó'],cuido:['💚','Qué necesito'],informe:['📋','Tu informe'],inicio:['🏠','Inicio'],quien:['👤','Quiénes'],turno:['📱','Cambio de turno'],temp:['🌡️','Temperatura'],temp2:['🌡️','Temperatura'],hechos:['🎥','Qué pasó'],traductor:['🔁','Traductor'],excavador:['🧊','Iceberg'],nombrar:['🏷️','Nombrar'],plan:['🧭','Plan'],lugar:['🔄','Cambio de lugar'],guion:['🗣️','Mensaje'],espejo:['🪞','Cambio de lugar'],acuerdo:['🤝','Acuerdo'],cierre:['🏁','Cierre']};
 const INFO={
+  iceberg:{do:'Primero elige cómo te ves por fuera; luego, con la rueda, lo que sientes de verdad por dentro.',why:'Lo que mostramos no siempre es lo que sentimos. Reconocer la diferencia evita la supresión (que según James Gross aumenta el malestar) y te deja elegir qué mostrar y cómo.'},
+  pensamiento:{do:'Escribe lo que te estás diciendo y revísalo como lo haría un buen detective: ¿qué dicen los hechos?',why:'La reevaluación cognitiva (terapia cognitivo-conductual) es una de las estrategias de regulación con más evidencia: cambiar cómo interpretas una situación cambia cómo te sientes.'},
+  herramientas:{do:'Abre una de las herramientas recomendadas y hazla ahora. Solo toma de 1 a 5 minutos.',why:'Las metaanálisis muestran que aceptar, reevaluar y regular el cuerpo funcionan mejor que suprimir o darle vueltas a la emoción. Aquí tienes técnicas de DBT, ACT, TCC, mindfulness y autocompasión.'},
   contexto:{do:'Elige de qué tema viene. Si quieres, cuenta qué pasó y marca dónde lo sientes en el cuerpo.',why:'Conectar emoción, situación y cuerpo te ayuda a reconocer tus patrones: qué te activa y cómo te avisa el cuerpo antes que la mente.'},
   cuido:{do:'Elige qué necesitas y una acción pequeña que puedes hacer tú por ti hoy.',why:'Cada emoción apunta a una necesidad. Atenderla tú primero te da calma y claridad; pedirle algo a otra persona es un paso opcional.'},
   informe:{do:'Lee tu informe. Si quieres, prepara cómo decírselo a alguien. Al final, vuelve a medirte.',why:'Mirar lo que sentiste desde afuera te da distancia. Ponerlo en palabras claras hace más fácil expresarlo sin herir.'},
@@ -853,10 +902,10 @@ function bindThermo(root,id,g,onChange){
   r.addEventListener('input',()=>upd(r.value,false));
   r.addEventListener('change',()=>upd(r.value,true));
 }
-function breathe(el,cycles,onDone,bag=timers,ais=[0]){
+function breathe(el,cycles,onDone,bag=timers,ais=[0],pattern='sigh'){
   el.innerHTML=`<div class="breath" aria-live="polite"><div class="orb-wrap"><div class="orb${ais.length>1?' two':''}">${ais.map(a=>avatarSVG(a,'zen')).join('')}</div></div><div class="b-label">Suelta los hombros…</div><div class="b-count"></div><button class="linkbtn" type="button">Terminar antes</button></div>`;
   const orb=$('.orb',el),bl=$('.b-label',el),bc=$('.b-count',el);
-  const phases=[['Inhala por la nariz',4,1],['Sostén suave',2,1],['Exhala lento, más largo',6,.55]];
+  const phases=pattern==='sigh'?[['Inhala por la nariz',2,.85],['Otra inhalación corta',1,1],['Exhala lento por la boca',6,.5]]:[['Inhala por la nariz',4,1],['Sostén suave',2,1],['Exhala lento, más largo',6,.55]];
   let c=0,p=0,finished=false;
   const done=()=>{if(finished)return;finished=true;onDone&&onDone();};
   function next(){
@@ -978,7 +1027,7 @@ V.inicio=()=>{
   const dirty=S.people.some(p=>p.t0!=null||p.camera||p.trans.length)&&S.maxStep>1;
   app.innerHTML=`<div class="hero"><div class="ha">${avatarSVG(0,'ira')}</div><div class="hero-mid">⚡</div><div class="hb">${avatarSVG(1,'ira')}</div></div>
   <p class="hero-cap" id="heroCap">Discuten y todo suena a ataque…</p>
-  <h1 class="center">Volver a Nosotros</h1>
+  <h1 class="center">Mi Brújula Emocional</h1>
   <p class="lead center">Una guía para entender lo que sientes, en el día a día o en un conflicto con cualquier persona, y poder expresarlo sin herir.</p>
   ${dirty?`<div class="card soft center"><p style="margin-bottom:10px">Tienes una sesión a medias (${esc(MOMENTS[S.mode].t.toLowerCase())}).</p><div class="row" style="justify-content:center"><button type="button" class="btn primary small" id="resume">Continuar donde iba</button><button type="button" class="btn ghost small" id="restart">Empezar de nuevo</button></div></div>`:''}
   <h2 class="center" style="margin-top:6px">¿En qué momento estás?</h2>
@@ -1027,20 +1076,21 @@ V.quien=()=>{
 
 V.temp=i=>{
   const p=P(i),sos=S.mode==='sos';
-  app.innerHTML=head('temp',i,sos?'Primero, frena. ¿Qué tan encendido está tu cuerpo?':S.mode==='diario'?'¿Qué tan intenso es lo que sientes ahora?':G('¿Qué tan activado/a está tu cuerpo ahora?',i),S.mode==='diario'?'Mueve el termómetro según la intensidad de tu emoción: 0 es calma total, 10 es desbordado.':null)+`<div class="card" id="th0">${thermoHTML('t0',p.t0,i)}</div><div id="after"></div>`;
+  const daily=S.mode==='diario'||S.mode==='rapido';
+  app.innerHTML=head('temp',i,sos?'Primero, frena. ¿Qué tan encendido está tu cuerpo?':daily?'¿Cómo estás ahora mismo?':G('¿Qué tan activado/a está tu cuerpo ahora?',i),daily?'Toca en el Medidor del Ánimo cómo está tu energía y qué tan agradable te sientes. Luego marca la intensidad.':null)+(daily?`<div class="card" id="moodc"><h3>1 · Medidor del Ánimo</h3><p class="hint">Herramienta del Centro de Inteligencia Emocional de Yale (método RULER).</p>${moodPadHTML(p)}</div><h3 style="margin:18px 0 8px">2 · ¿Con qué intensidad?</h3>`:'')+`<div class="card" id="th0">${thermoHTML('t0',p.t0,i)}</div><div id="after"></div>`;
   bindThermo(app,'t0',p.g,v=>{p.t0=v;p.breathed=false;p.t1=null;save();award('temp'+i,5,$('.temp-num'));paint();updateNav();});
   function paint(){
     const el=$('#after');if(p.t0==null){el.innerHTML='';return;}
     let h='';
     if(!p.breathed){
-      if(p.t0>=7||(sos&&p.t0>=5))h+=`<div class="card warm popin" id="bz"><h3>🌬️ Respira un minuto antes de seguir</h3><p>Tu cuerpo está en alerta. Exhalar más largo de lo que inhalas le avisa a tu sistema nervioso que no hay peligro. Sigue la esfera.</p><div id="bzin"><button type="button" class="btn primary block" id="bstart">Empezar respiración</button><button type="button" class="linkbtn" id="bskip">Ahora no puedo</button></div></div>`;
+      if(p.t0>=7||(sos&&p.t0>=5))h+=`<div class="card warm popin" id="bz"><h3>🌬️ Respira un minuto antes de seguir</h3><p>Tu cuerpo está en alerta. Haz <b>suspiro cíclico</b>: dos inhalaciones por la nariz (una larga y una corta) y una exhalación lenta por la boca. Es la respiración que más mejoró el ánimo en un estudio de Stanford (2023). Sigue la esfera.</p><div id="bzin"><button type="button" class="btn primary block" id="bstart">Empezar respiración</button><button type="button" class="linkbtn" id="bskip">Ahora no puedo</button></div></div>`;
       else if(p.t0>=4)h+=`<div class="card popin"><p>Estás en zona media. Si quieres, respira un minuto (es opcional).</p><div id="bzin"><button type="button" class="btn ghost block" id="bstart">🌬️ Respirar 1 minuto</button></div></div>`;
       else h+=`<div class="card soft popin"><p>😌 Buen punto de partida: desde aquí se puede escuchar.</p></div>`;
     }else h+=`<div class="card popin" id="th1"><h3>¿Y ahora?</h3>${thermoHTML('t1',p.t1,i)}<div id="delta"></div></div>`;
     const cur=p.breathed&&p.t1!=null?p.t1:p.t0;
     if(!sos&&cur>=8&&(p.breathed||p.t0>=9))h+=`<div class="card warm popin"><h3>⏸️ Mejor una pausa</h3><p>Con esta intensidad, seguir suele empeorar las cosas. Tómate al menos 20 minutos y vuelve: tu avance queda guardado.</p><button type="button" class="btn warm block" id="gp">Abrir pausa</button></div>`;
     el.innerHTML=h;
-    const bs=$('#bstart',el);if(bs)bs.onclick=()=>breathe($('#bzin',el),5,()=>{clearTimers();p.breathed=true;save();award('breath'+i,15,el);badge('calma');paint();updateNav();},timers,[i]);
+    const bs=$('#bstart',el);if(bs)bs.onclick=()=>breathe($('#bzin',el),6,()=>{clearTimers();p.breathed=true;save();award('breath'+i,15,el);badge('calma');paint();updateNav();},timers,[i]);
     const sk=$('#bskip',el);if(sk)sk.onclick=()=>{p.breathed=true;save();paint();updateNav();};
     if(p.breathed){
       bindThermo(el,'t1',p.g,v=>{p.t1=v;save();paint();updateNav();});
@@ -1049,7 +1099,9 @@ V.temp=i=>{
     const gp=$('#gp',el);if(gp)gp.onclick=openPause;
   }
   paint();
+  if(daily)bindMoodPad(p);
   setGate(()=>{
+    if(daily&&!p.mood)return{ok:false,msg:'Toca el Medidor del Ánimo',focus:'#moodc'};
     if(p.t0==null)return{ok:false,msg:'Marca tu temperatura de 0 a 10',focus:'#th0'};
     if(!p.breathed&&(p.t0>=7||(sos&&p.t0>=5)))return{ok:false,msg:'Primero respira un minuto',focus:'#bz'};
     if(p.breathed&&p.t1==null)return{ok:false,msg:'Vuelve a medir cómo estás',focus:'#th1'};
@@ -1072,7 +1124,7 @@ V.temp2=()=>{
     const cur=Math.max(P(0).t1??P(0).t0,P(1).t1??P(1).t0);
     if(cur>=8&&P(0).breathed)h+=`<div class="card warm popin"><h3>⏸️ Mejor una pausa</h3><p>Uno de los dos sigue muy activado. Tómense 20 minutos y vuelvan: el avance queda guardado.</p><button type="button" class="btn warm block" id="gp">Abrir pausa</button></div>`;
     el.innerHTML=h;
-    const bs=$('#bstart',el);if(bs)bs.onclick=()=>breathe($('#bzin',el),5,()=>{clearTimers();P(0).breathed=P(1).breathed=true;save();award('breath2',15,el);badge('calma');paint();updateNav();},timers,[0,1]);
+    const bs=$('#bstart',el);if(bs)bs.onclick=()=>breathe($('#bzin',el),6,()=>{clearTimers();P(0).breathed=P(1).breathed=true;save();award('breath2',15,el);badge('calma');paint();updateNav();},timers,[0,1]);
     const sk=$('#bskip',el);if(sk)sk.onclick=()=>{P(0).breathed=P(1).breathed=true;save();paint();updateNav();};
     if(P(0).breathed)[0,1].forEach(i=>bindThermo(el,'t1'+i,P(i).g,v=>{P(i).t1=v;save();paint();updateNav();}));
     const gp=$('#gp',el);if(gp)gp.onclick=openPause;
@@ -1208,7 +1260,7 @@ V.nombrar=i=>{
   app.innerHTML=head('nombrar',i,'Ponle nombre a lo que sientes')+`<div class="card" id="wcard"><div id="wpk"></div><div id="nres"></div></div>`;
   const paintRes=()=>{const el=$('#nres');if(!p.now){el.innerHTML='';return;}const F=WHEEL[p.now.f],M=p.now.m!=null?F.m[p.now.m]:null;
     el.innerHTML=`<div class="card soft popin" style="margin:14px 0 0"><p style="margin:0">Acabas de ponerle nombre: <b>${esc(selWord(p.now,p.g).toLowerCase())}</b>. Solo con eso la intensidad suele bajar un poco.${M&&M[2]?` Cuando alguien se siente así, muchas veces necesita <b>${esc(G(M[2],i).toLowerCase())}</b>.`:''}</p></div>`;};
-  wheelPicker($('#wpk'),{g:p.g,ai:i,sel:p.now,prompt:'Ahora mismo siento…',onChange:s=>{p.now=s;save();paintRes();award('now'+i,10,$('#nres'));}});
+  wheelPicker($('#wpk'),{g:p.g,ai:i,sel:p.now,prompt:'Ahora mismo siento…',sug:quadOf(p.mood)?QUAD[quadOf(p.mood)].fams:[],onChange:s=>{p.now=s;save();paintRes();award('now'+i,10,$('#nres'));}});
   paintRes();
   setGate(()=>p.now?{ok:true,label:'Siguiente'}:{ok:false,msg:'Toca la emoción que más se parece',focus:'#wcard'});
 };
@@ -1439,7 +1491,7 @@ V.acuerdo=()=>{
 
 function summaryText(){
   const ids=S.mode==='juntos'?[0,1]:[0],A=S.agree,L=[];
-  L.push('VOLVER A NOSOTROS — '+new Date().toLocaleDateString('es',{day:'numeric',month:'long',year:'numeric'}),'');
+  L.push('MI BRÚJULA EMOCIONAL — '+new Date().toLocaleDateString('es',{day:'numeric',month:'long',year:'numeric'}),'');
   ids.forEach(i=>{const p=P(i),d=p.dig;L.push(N(i).toUpperCase());
     if(p.now)L.push('• Lo que sentía: '+selWord(p.now,p.g));
     if(p.camera.trim())L.push('• Lo que pasó: '+p.camera.trim());
@@ -1457,7 +1509,7 @@ function summaryText(){
 }
 function finish(){
   const ids=S.mode==='juntos'?[0,1]:[0];
-  const h=store.get(HKEY)||[];h.push({date:new Date().toISOString(),mode:S.mode,label:MOMENTS[S.mode].t,rows:ids.map(i=>{const sel=mainSel(i);return{n:N(i),t0:P(i).t0,tEnd:P(i).tEnd,core:deepNoun(i)||(P(i).now?selWord(P(i).now,P(i).g).toLowerCase():''),fam:sel?WHEEL[sel.f].k:null,word:sel?selWord(sel,P(i).g):'',needs:P(i).needs.slice(),trig:P(i).trig||(S.mode!=='diario'&&S.mode!=='juntos'?(REL[S.rel]||REL.otra)[1]:'')};}),agree:S.agree.what.trim()});store.set(HKEY,h.slice(-30));
+  const h=store.get(HKEY)||[];h.push({date:new Date().toISOString(),mode:S.mode,label:MOMENTS[S.mode].t,rows:ids.map(i=>{const sel=mainSel(i);return{n:N(i),t0:P(i).t0,tEnd:P(i).tEnd,core:deepNoun(i)||(P(i).now?selWord(P(i).now,P(i).g).toLowerCase():''),fam:sel?WHEEL[sel.f].k:null,word:sel?selWord(sel,P(i).g):'',out:(P(i).out||[]).map(k=>OUT[k][1]),quad:quadOf(P(i).mood),tools:(P(i).tools||[]).slice(),needs:P(i).needs.slice(),trig:P(i).trig||(S.mode!=='diario'&&S.mode!=='juntos'?(REL[S.rel]||REL.otra)[1]:'')};}),agree:S.agree.what.trim()});store.set(HKEY,h.slice(-30));
   const txt=summaryText();
   openSheet();confetti(innerWidth/2,innerHeight/3,140);
   ov.innerHTML=`<div class="sheet center" role="dialog" aria-modal="true"><div class="scene"><div class="sa">${avatarSVG(0,'amor')}</div><div class="mid">🏁</div><div class="sa">${avatarSVG(1,S.mode==='juntos'?'amor':'calma')}</div></div>
@@ -1466,7 +1518,7 @@ function finish(){
   <div class="row" style="justify-content:center"><button type="button" class="btn ghost small" id="fCopy">Copiar resumen</button>${navigator.share?'<button type="button" class="btn ghost small" id="fShare">Compartir</button>':''}</div>
   <button type="button" class="btn primary block" id="fHome" style="margin-top:14px">Volver al inicio</button></div>`;
   $('#fCopy').onclick=()=>copy(txt);
-  const fs=$('#fShare');if(fs)fs.onclick=()=>navigator.share({title:'Volver a Nosotros',text:txt}).catch(()=>{});
+  const fs=$('#fShare');if(fs)fs.onclick=()=>navigator.share({title:'Mi Brújula Emocional',text:txt}).catch(()=>{});
   $('#fHome').onclick=()=>{closeSheet();keepAndReset(null);render('back');window.scrollTo({top:0});};
 }
 V.cierre=()=>{
@@ -1509,50 +1561,277 @@ function bodySVG(p){return`<svg viewBox="0 0 120 200" class="body" aria-hidden="
   <g class="silu"><circle cx="60" cy="22" r="15"/><rect x="54" y="35" width="12" height="10" rx="4"/><path d="M34 50 Q60 42 86 50 L90 120 Q60 128 30 120Z"/><path d="M34 52 L14 124 L23 127 L40 70Z"/><path d="M86 52 L106 124 L97 127 L80 70Z"/><path d="M40 120 L44 194 L56 194 L58 128Z"/><path d="M80 120 L76 194 L64 194 L62 128Z"/></g>
   ${BODY.map(([k,,pts])=>pts.map(([x,y])=>`<circle class="bz${p.body.includes(k)?' on':''}" data-z="${k}" cx="${x}" cy="${y}" r="10"/>`).join('')).join('')}</svg>`;}
 
+/* ================= exploración a fondo ================= */
+const QUAD={
+  rojo:{e:'🔴',n:'Alta energía · desagradable',c:'#f4866f',fams:['ira','miedo','asco'],w:'tenso, enojado, ansioso'},
+  amarillo:{e:'🟡',n:'Alta energía · agradable',c:'#ffd166',fams:['felicidad','sorpresa'],w:'entusiasmado, alegre, motivado'},
+  azul:{e:'🔵',n:'Baja energía · desagradable',c:'#86a8f0',fams:['tristeza','miedo'],w:'triste, cansado, desanimado'},
+  verde:{e:'🟢',n:'Baja energía · agradable',c:'#86d4ae',fams:['felicidad'],w:'tranquilo, en paz, satisfecho'}
+};
+const quadOf=m=>!m?null:m.y>=0?(m.x<0?'rojo':'amarillo'):(m.x<0?'azul':'verde');
+function moodPadHTML(p){return`<div class="mpad" id="mpad" role="application" aria-label="Medidor del ánimo: toca según tu energía y qué tan agradable te sientes">
+  ${['rojo','amarillo','azul','verde'].map(q=>`<div class="mq ${q}" style="--qc:${QUAD[q].c}"><b>${QUAD[q].e}</b><span>${QUAD[q].w}</span></div>`).join('')}
+  <span class="max y">⚡ Más energía</span><span class="max y2">🪫 Menos energía</span><span class="max x">😣 Desagradable</span><span class="max x2">Agradable 😊</span>
+  <i class="mdot" ${p.mood?`style="left:${(p.mood.x+1)*50}%;top:${(1-p.mood.y)*50}%"`:'hidden'}></i></div><p class="hint center" id="mlbl" style="margin-top:8px">${p.mood?`${QUAD[quadOf(p.mood)].e} ${QUAD[quadOf(p.mood)].n}`:'Toca el punto que mejor te describe'}</p>`;}
+function bindMoodPad(p,onChange){
+  const pad=$('#mpad');if(!pad)return;
+  const set=e=>{const r=pad.getBoundingClientRect();const x=Math.max(-1,Math.min(1,((e.clientX-r.left)/r.width)*2-1)),y=Math.max(-1,Math.min(1,1-((e.clientY-r.top)/r.height)*2));p.mood={x:+x.toFixed(2),y:+y.toFixed(2)};const d=$('.mdot',pad);d.hidden=false;d.style.left=(x+1)*50+'%';d.style.top=(1-y)*50+'%';const q=QUAD[quadOf(p.mood)];$('#mlbl').textContent=`${q.e} ${q.n}`;};
+  let down=false;
+  pad.addEventListener('pointerdown',e=>{down=true;try{pad.setPointerCapture(e.pointerId)}catch(_){}set(e);});
+  pad.addEventListener('pointermove',e=>{if(down)set(e);});
+  const up=()=>{if(!down)return;down=false;save();vib(12);onChange&&onChange();updateNav();};
+  pad.addEventListener('pointerup',up);pad.addEventListener('pointercancel',up);
+}
+
+const OUT=[['😐','Serio/a o callado/a','neutral'],['😤','Irritable o cortante','ira'],['🙂','Sonriendo como si nada','felicidad'],['🥶','Frío/a o distante','tenso'],['😢','Con ganas de llorar','tristeza'],['😬','Nervioso/a o inquieto/a','miedo'],['🙄','Sarcástico/a','asco'],['🏃','Haciendo mil cosas sin parar','sorpresa'],['🪫','Apagado/a, sin energía','tristeza'],['🎭','Normal: nadie lo notaría','calma']];
+const CRISIS=['Desesperado/a','Vacío/a','Desvalido/a','Inútil','Insignificante','Desamparado/a'];
+function crisisCard(){return`<div class="card crisis"><h3>🆘 Si sientes que no puedes más</h3><p>Si estás pensando en hacerte daño, no tienes que pasarlo a solas. Llama ahora al número de emergencias de tu país o a una línea de prevención del suicidio, o escribe a alguien de confianza.</p><p><a href="https://findahelpline.com/es" target="_blank" rel="noopener">Encuentra la línea de ayuda de tu país ➜</a></p></div>`;}
+function needsCrisis(i){const p=P(i),cur=p.t1??p.t0;const w=[p.now,p.under].filter(Boolean).map(s=>{const F=WHEEL[s.f];return s.l!=null?F.m[s.m][1][s.l]:s.m!=null?F.m[s.m][0]:F.n;});return cur>=9||w.some(x=>CRISIS.includes(x));}
+function gapText(i){
+  const p=P(i);if(!p.now||!p.out.length)return'';
+  const outF=p.out.map(k=>OUT[k][2]),inF=WHEEL[p.now.f].k,unF=p.under?WHEEL[p.under.f].k:null,hard=['ira','tristeza','miedo','asco'];
+  const inW=selWord(p.now,p.g).toLowerCase();
+  if(outF.every(f=>['neutral','calma','felicidad','tenso'].includes(f))&&hard.includes(inF))return`Estás mostrando calma (o nada) mientras por dentro sientes <b>${esc(inW)}</b>. Esconder una emoción gasta energía: la investigación de James Gross muestra que suprimirla se asocia con más malestar que reconocerla. No tienes que mostrársela a todo el mundo, pero sí reconocerla para ti.`;
+  if(outF.includes('ira')&&(['tristeza','miedo'].includes(inF)||['tristeza','miedo'].includes(unF)))return`Por fuera se ve enojo, pero por dentro hay <b>${esc(unF&&['tristeza','miedo'].includes(unF)?selWord(p.under,p.g).toLowerCase():inW)}</b>. Los demás reaccionan a lo que ven: si muestras solo el enojo, se defienden. Si muestras lo de dentro, es más fácil que se acerquen.`;
+  if(outF.includes(inF))return`Lo que muestras coincide con lo que sientes: eso es coherencia emocional. Aun así, fíjate en cómo lo expresas para que no hiera.`;
+  return`Lo que muestras y lo que sientes no son lo mismo. Nombrar la diferencia ya es un paso: te permite elegir qué mostrar y cómo.`;
+}
+function icebergD(i){
+  const p=P(i),g=p.g,F=p.now?WHEEL[p.now.f]:null,U=p.under?WHEEL[p.under.f]:null;
+  return`<div class="ice">
+  <svg class="berg" viewBox="0 0 200 330" preserveAspectRatio="none" aria-hidden="true"><polygon points="100,26 124,58 134,89 170,140 182,210 160,280 118,318 70,312 30,262 22,190 50,120 72,82 84,56" fill="rgba(215,240,255,.35)"/><polygon points="100,26 124,58 134,89 72,89 84,56" fill="#fff"/></svg>
+  <svg class="wave" viewBox="0 0 400 12" preserveAspectRatio="none" aria-hidden="true"><path d="M0 6 Q25 0 50 6 T100 6 T150 6 T200 6 T250 6 T300 6 T350 6 T400 6 V12 H0Z" fill="#3d8fc7"/></svg>
+  <span class="cap a">Lo que muestro</span><span class="cap b">Lo que siento</span>
+  ${p.out.length?`<span class="lbl" style="top:12%">${p.out.map(k=>OUT[k][0]).join('')} ${esc(gx(OUT[p.out[0]][1],g))}${p.out.length>1?' …':''}</span>`:''}
+  ${F?`<span class="lbl" style="top:44%;animation-delay:.2s">${F.e} ${esc(selWord(p.now,g))}</span>`:''}
+  ${U?`<span class="lbl" style="top:62%;animation-delay:.35s">${U.e} Más al fondo: ${esc(selWord(p.under,g))}</span>`:''}
+  ${p.needs.length?`<span class="lbl" style="top:80%;animation-delay:.5s">💚 ${esc(p.needs.map(n=>G(n,i)).join(' · '))}</span>`:''}</div>`;
+}
+
+V.iceberg=i=>{
+  const p=P(i),g=p.g,SUB=['Por fuera','Por dentro','Más al fondo','Tu máscara'];
+  const q=quadOf(p.mood),sugIn=q?QUAD[q].fams:[];
+  app.innerHTML=head('iceberg',i,'Por fuera y por dentro')+'<div id="ex"></div>';
+  const ex=$('#ex');
+  if(p.istep==null)p.istep=0;
+  function paint(){
+    const st=p.istep;let h=`<div class="substeps">${SUB.map((s,n)=>`<span class="${n<st?'on':''}${n===st?' cur':''}"><i></i>${s}</span>`).join('')}</div>`;
+    if(st===0)h+=`<div class="card popin" id="exc"><h3>¿Cómo te ves por fuera?</h3><p>Lo que los demás notarían en tu cara, tu voz o lo que haces. Elige hasta 3.</p><div class="outgrid">${OUT.map(([e,t],k)=>`<button type="button" class="outb" data-out="${k}" aria-pressed="${p.out.includes(k)}"><span>${e}</span>${esc(gx(t,g))}</button>`).join('')}</div>
+      <div class="scene" style="margin-top:14px"><div></div><div class="sa" id="outAv">${avatarSVG(i,p.out.length?OUT[p.out[0]][2]:'neutral')}Lo que muestras</div><div></div></div></div>`;
+    else if(st===1)h+=`<div class="card popin" id="exc"><h3>¿Qué sientes de verdad por dentro?</h3><p>Ahora olvida lo que muestras. ${q?`Marcaste <b>${QUAD[q].e} ${esc(QUAD[q].n.toLowerCase())}</b>; las familias con ★ suelen estar ahí.`:''} Busca la palabra más precisa: nombrar con precisión ayuda a regular mejor (Lisa Feldman Barrett lo llama <i>granularidad emocional</i>).</p><div id="wpk"></div></div>`;
+    else if(st===2){const inF=p.now?WHEEL[p.now.f].k:'';const sg=['ira','asco'].includes(inF)?['tristeza','miedo']:[];
+      h+=`<div class="card popin" id="exc"><h3>¿Hay algo más al fondo?</h3><p>A veces una emoción protege otra más vulnerable${sg.length?': el enojo suele cubrir tristeza o miedo (★)':''}. Si no hay nada más, sáltalo.</p><div id="wpk"></div></div>`;}
+    else h+=`<div class="card popin"><h3>Tu máscara y tu iceberg</h3><div class="scene"><div class="sa">${avatarSVG(i,p.out.length?OUT[p.out[0]][2]:'neutral')}Lo que muestras</div><div class="mid">🎭</div><div class="sa">${avatarSVG(i,p.now?WHEEL[(p.under||p.now).f].k:'neutral')}Lo que sientes</div></div>${icebergD(i)}<p style="margin-top:12px">${gapText(i)}</p></div>`;
+    ex.innerHTML=h;
+    $$('[data-out]',ex).forEach(b=>b.onclick=()=>{const k=+b.dataset.out,x=p.out.indexOf(k);if(x>=0)p.out.splice(x,1);else{if(p.out.length>=3){toast('Máximo 3');return;}p.out.push(k);}b.setAttribute('aria-pressed',String(p.out.includes(k)));save();setAv($('#outAv'),p.out.length?OUT[p.out[0]][2]:'neutral',6);});
+    if(st===1)wheelPicker($('#wpk'),{g,ai:i,sel:p.now,prompt:'Por dentro siento…',sug:sugIn,onChange:s=>{p.now=s;save();}});
+    if(st===2){const inF=p.now?WHEEL[p.now.f].k:'';wheelPicker($('#wpk'),{g,ai:i,sel:p.under,prompt:'Más al fondo hay…',sug:['ira','asco'].includes(inF)?['tristeza','miedo']:[],dim:p.now?[inF]:[],onChange:s=>{p.under=s;save();}});}
+  }
+  const sub=n=>{p.istep=n;save();if(n===3&&award('fondo'+i,25,ex))badge('fondo');paint();updateNav();window.scrollTo({top:0,behavior:RM?'auto':'smooth'});};
+  paint();
+  setGate(()=>{
+    const st=p.istep,back={onBack:st>0?()=>sub(st-1):null};
+    if(st===0)return p.out.length?{ok:true,label:'Siguiente: por dentro ➜',onNext:()=>sub(1)}:{ok:false,msg:'Elige cómo te ves por fuera',focus:'#exc'};
+    if(st===1)return p.now?{...back,ok:true,label:'Siguiente: más al fondo ➜',onNext:()=>sub(2)}:{...back,ok:false,msg:'Elige lo que sientes por dentro',focus:'#exc'};
+    if(st===2)return{...back,ok:true,label:p.under?'Ver mi máscara ➜':'No hay nada más, seguir ➜',onNext:()=>sub(3)};
+    return{...back,ok:true,label:'Siguiente'};
+  });
+};
+
 V.contexto=i=>{
   const p=P(i);
   app.innerHTML=head('contexto',i,'¿De dónde viene?')+`
   <div class="card" id="trc"><h3>1 · ¿De qué tema viene?</h3><div class="chips">${TRIG.map(([e,t])=>`<button type="button" class="chip" data-tr="${esc(t)}" aria-pressed="${p.trig===t}">${e} ${esc(t)}</button>`).join('')}</div>
-  <label class="f" for="sit">¿Qué pasó? <span class="hint">· opcional</span></label><textarea id="sit" rows="2" placeholder="Ej.: me cambiaron la entrega para mañana sin avisarme">${esc(p.camera)}</textarea></div>
+  <label class="f" for="sit">¿Qué pasó? <span class="hint">· solo los hechos, opcional</span></label><textarea id="sit" rows="2" placeholder="Ej.: me cambiaron la entrega para mañana sin avisarme">${esc(p.camera)}</textarea><div id="jfb"></div></div>
   <div class="card"><h3>2 · ¿Dónde lo sientes en el cuerpo? <span class="hint">· opcional</span></h3><p class="hint">Toca el dibujo o los nombres. El cuerpo suele avisar antes que la mente.</p>
-  <div class="bodymap"><div class="bodyfig">${bodySVG(p)}</div><div><div class="chips sm">${BODY.map(([k,l])=>`<button type="button" class="chip" data-zc="${k}" aria-pressed="${p.body.includes(k)}">${l}</button>`).join('')}</div></div></div><div id="bnote"></div></div>
-  <div class="card"><label class="f" for="tho" style="margin-top:0">3 · ¿Qué pensamiento se repite? <span class="hint">· opcional</span></label><textarea id="tho" rows="2" placeholder="Ej.: «Nunca hago nada bien»">${esc(p.thought)}</textarea><div id="thfb"></div></div>`;
+  <div class="bodymap"><div class="bodyfig">${bodySVG(p)}</div><div><div class="chips sm">${BODY.map(([k,l])=>`<button type="button" class="chip" data-zc="${k}" aria-pressed="${p.body.includes(k)}">${l}</button>`).join('')}</div></div></div><div id="bnote"></div></div>`;
   const paintBody=()=>{$$('[data-z]').forEach(c=>c.classList.toggle('on',p.body.includes(c.dataset.z)));$$('[data-zc]').forEach(c=>c.setAttribute('aria-pressed',String(p.body.includes(c.dataset.zc))));
     $('#bnote').innerHTML=p.body.length?`<ul class="tips popin" style="margin-top:12px">${p.body.map(z=>`<li>${esc(BODY_NOTE[z])}</li>`).join('')}</ul>`:'';};
   const toggleZ=z=>{const k=p.body.indexOf(z);k>=0?p.body.splice(k,1):p.body.push(z);save();vib(10);paintBody();};
   $$('[data-z]').forEach(c=>c.addEventListener('click',()=>toggleZ(c.dataset.z)));
   $$('[data-zc]').forEach(c=>c.onclick=()=>toggleZ(c.dataset.zc));
   $$('[data-tr]').forEach(b=>b.onclick=()=>{p.trig=b.dataset.tr;save();$$('[data-tr]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));});
-  $('#sit').oninput=e=>{p.camera=e.target.value;save();};
-  const paintTh=()=>{const j=judge(p.thought).filter(x=>/generaliz|juicio|conclusi/.test(x.tip));$('#thfb').innerHTML=j.length?`<div class="warnbox">💡 Los pensamientos con «siempre», «nunca» o etiquetas suelen exagerar cuando estamos mal. ¿Qué te diría una amistad que te quiere?</div>`:'';};
-  $('#tho').oninput=e=>{p.thought=e.target.value;save();paintTh();};
-  paintBody();paintTh();
+  const paintJ=()=>{const l=judge(p.camera);$('#jfb').innerHTML=p.camera.trim()&&l.length?`<ul class="tips">${l.slice(0,2).map(x=>`<li>${esc(x.tip)}</li>`).join('')}</ul>`:'';};
+  $('#sit').oninput=e=>{p.camera=e.target.value;save();paintJ();};
+  paintBody();paintJ();
   setGate(()=>p.trig?{ok:true,label:'Siguiente'}:{ok:false,msg:'Elige de qué tema viene',focus:'#trc'});
 };
 
+const DIST=[
+  ['catastrofe','Catastrofizar','Imaginar el peor final como si fuera seguro.','¿Qué es lo más probable que pase, no lo peor? ¿Podría manejarlo?',/\b(horrible|desastre|terrible|arruin\w*|se acabo|no voy a poder|todo se va a|lo peor)\b/],
+  ['mente','Leer la mente','Suponer lo que otra persona piensa sin preguntarlo.','¿Cómo lo sé de verdad? ¿Qué otra razón podría tener?',/\b(piensa que|cree que|me odia|no le importo|lo hizo para|seguro piensa|me juzga)\b/],
+  ['todo','Todo o nada','Ver solo extremos: perfecto o fracaso.','¿Qué hay en medio? ¿Qué parte sí salió bien?',/\b(todo|nada|perfect\w*|fracas\w*|completamente|totalmente)\b/],
+  ['generalizar','Generalizar','Convertir una vez en «siempre» o «nunca».','¿Cuántas veces pasó realmente? ¿Hubo excepciones?',/\b(siempre|nunca|jamas|todo el mundo|nadie)\b/],
+  ['etiquetar','Etiquetar','Ponerte (o ponerle a otro) una etiqueta global.','Describe la acción, no la persona: «me equivoqué en…» en lugar de «soy un…».',/\b(soy (un |una |muy )?(inutil|tont[oa]|fracasad[oa]|idiota|desastre|mal[oa]|lo peor)|es (un|una) (idiota|egoista|inutil))/],
+  ['deberia','Los «debería»','Exigencias rígidas contigo o con otros.','Cambia «debería» por «me gustaría» o «prefiero».',/\b(deberia|tengo que|tendria que|no deberia)\b/],
+  ['personal','Personalizar','Sentir que todo es por tu culpa o va contra ti.','¿Qué otros factores influyeron que no dependen de ti?',/\b(mi culpa|por mi culpa|contra mi|todo es por mi)\b/],
+  ['filtro','Filtro negativo','Ver solo lo malo e ignorar lo bueno.','¿Qué pasó que estuvo bien, aunque sea pequeño?',null],
+  ['emocional','Razonamiento emocional','Creer que algo es verdad porque lo sientes.','Sentirlo no lo convierte en un hecho. ¿Qué dicen los hechos?',/\b(siento que|me siento como un)\b/]
+];
+const defuse=t=>`Estoy notando que tengo el pensamiento de que «${trimEnd(t).replace(/^[«"]|[»"]$/g,'')}».`;
+V.pensamiento=i=>{
+  const p=P(i);
+  app.innerHTML=head('pensamiento',i,'Revisa tu pensamiento')+`
+  <div class="card" id="thc"><label class="f" for="tho" style="margin-top:0">1 · ¿Qué te estás diciendo sobre esto?</label><textarea id="tho" rows="2" placeholder="Ej.: «Nunca hago nada bien, me van a despedir»">${esc(p.thought)}</textarea></div>
+  <div id="rest"></div>`;
+  function paintRest(){
+    const el=$('#rest');if(!p.thought.trim()){el.innerHTML=`<p class="hint center">Si no tienes un pensamiento claro, puedes saltar este paso.</p>`;return;}
+    const n=norm(p.thought),auto=DIST.filter(d=>d[4]&&d[4].test(n)).map(d=>d[0]);
+    el.innerHTML=`<div class="card popin"><h3>2 · ¿Qué trampa mental podría haber?</h3><p class="hint">Son atajos del cerebro cuando estamos mal (Aaron Beck, terapia cognitiva). ${auto.length?'Las marcadas con ★ parecen aparecer en lo que escribiste.':''} Elige las que reconozcas.</p>
+      <div class="dists">${DIST.map(([k,t,d])=>`<button type="button" class="dist ${auto.includes(k)?'sug':''}" data-d="${k}" aria-pressed="${p.dist.includes(k)}"><b>${t}${auto.includes(k)?' ★':''}</b><span>${d}</span></button>`).join('')}</div><div id="qs"></div></div>
+      <div class="card popin"><h3>3 · Revisa los hechos</h3><label class="f" for="ev1">¿Qué evidencia hay a favor de ese pensamiento?</label><input type="text" id="ev1" value="${esc(p.evFor)}" placeholder="Hechos, no sensaciones">
+      <label class="f" for="ev2">¿Y qué evidencia hay en contra?</label><input type="text" id="ev2" value="${esc(p.evAgainst)}" placeholder="Ej.: el mes pasado entregué a tiempo y me felicitaron"></div>
+      <div class="card popin" id="balc"><h3>4 · Un pensamiento más equilibrado</h3><p class="hint">No se trata de pensar «en positivo», sino de ser justo contigo. Imagina qué le dirías a una amistad en tu lugar.</p><textarea id="bal" rows="2" placeholder="Ej.: Me equivoqué en una entrega, pero en general hago bien mi trabajo. Puedo pedir más tiempo.">${esc(p.balanced)}</textarea>
+      <div class="defu"><p class="hint" style="margin:12px 0 6px">🍃 O simplemente toma distancia (ACT):</p><div class="say">${esc(defuse(p.thought))}</div></div></div>`;
+    const paintQ=()=>{$('#qs').innerHTML=p.dist.length?`<ul class="tips popin" style="margin-top:12px">${p.dist.map(k=>{const d=DIST.find(x=>x[0]===k);return`<li><b>${d[1]}:</b> ${esc(d[3])}</li>`;}).join('')}</ul>`:'';};
+    $$('[data-d]',el).forEach(b=>b.onclick=()=>{const k=b.dataset.d,x=p.dist.indexOf(k);x>=0?p.dist.splice(x,1):p.dist.push(k);b.setAttribute('aria-pressed',String(p.dist.includes(k)));save();paintQ();});
+    $('#ev1').oninput=e=>{p.evFor=e.target.value;save();};$('#ev2').oninput=e=>{p.evAgainst=e.target.value;save();};
+    $('#bal').oninput=e=>{p.balanced=e.target.value;save();if(p.balanced.trim().length>15&&award('reencuadre'+i,15,$('#balc')))badge('reencuadre');};
+    paintQ();
+  }
+  let t;$('#tho').oninput=e=>{p.thought=e.target.value;save();clearTimeout(t);t=setTimeout(()=>{paintRest();updateNav();},500);};
+  paintRest();
+  setGate(()=>!p.thought.trim()?{ok:true,label:'No tengo uno claro, saltar ➜'}:p.balanced.trim().length<8?{ok:false,msg:'Escribe un pensamiento más equilibrado',focus:'#balc'}:{ok:true,label:'Siguiente'});
+};
+
+const FITS=[['si','✅','Sí, encaja con lo que pasó'],['parte','⚖️','En parte: es más intensa de lo que la situación pide'],['no','💭','No: creo que reacciono a una historia, no a los hechos']];
 V.cuido=i=>{
-  const p=P(i),F=p.now?WHEEL[p.now.f]:null,M=p.now&&p.now.m!=null?F.m[p.now.m]:null;
-  const sug=uniq([M&&M[2],...(F?FAM_NEEDS[F.k]:[])].filter(Boolean));
-  app.innerHTML=head('cuido',i,'¿Qué necesitas?')+`
-  <div class="card" id="needs"><h3>1 · Lo que tu emoción está pidiendo</h3><p class="hint">Elige de 1 a 3.${sug.length?' Las marcadas con ★ suelen ir con lo que sientes.':''}</p>${Object.entries(NEEDS).map(([grp,arr])=>`<p class="grp">${grp}</p><div class="chips">${arr.map(n=>`<button type="button" class="chip ${sug.includes(n)?'sug':''}" data-need="${esc(n)}" aria-pressed="${p.needs.includes(n)}">${esc(G(n,i))}</button>`).join('')}</div>`).join('')}</div>
-  <div class="card" id="carec"><h3>2 · 🛠️ Algo que puedes hacer tú por ti hoy</h3><p class="hint">Elige hasta 3 acciones pequeñas. No depende de nadie más.</p><div id="care"></div>
-  <input type="text" id="carex" placeholder="O escribe la tuya…" style="margin-top:10px"></div>`;
+  const p=P(i),F=p.now?WHEEL[p.now.f]:null,M=p.now&&p.now.m!=null?F.m[p.now.m]:null,U=p.under?WHEEL[p.under.f]:null;
+  const sug=uniq([M&&M[2],...(U?FAM_NEEDS[U.k]:[]),...(F?FAM_NEEDS[F.k]:[])].filter(Boolean)).slice(0,4);
+  const full=S.mode==='diario';
+  app.innerHTML=head('cuido',i,'¿Qué te está pidiendo tu emoción?')+`
+  ${full?`<div class="card" id="fitc"><h3>1 · ¿Tu emoción encaja con los hechos?</h3><p class="hint">Habilidad «comprobar los hechos» de la terapia dialéctico conductual (DBT). Toda emoción es válida; la pregunta es si su intensidad te ayuda.</p><div class="mode-grid">${FITS.map(([k,e,t])=>`<button type="button" class="mode" data-fit="${k}" aria-pressed="${p.fits===k}"><span class="mi">${e}</span><div><b>${t}</b></div></button>`).join('')}</div><div id="fitm"></div></div>`:''}
+  <div class="card" id="needs"><h3>${full?'2':'1'} · Lo que necesitas</h3><p class="hint">Elige de 1 a 3.${sug.length?' Las marcadas con ★ suelen ir con lo que sientes.':''}</p>${Object.entries(NEEDS).map(([grp,arr])=>`<p class="grp">${grp}</p><div class="chips">${arr.map(n=>`<button type="button" class="chip ${sug.includes(n)?'sug':''}" data-need="${esc(n)}" aria-pressed="${p.needs.includes(n)}">${esc(G(n,i))}</button>`).join('')}</div>`).join('')}</div>
+  <div class="card" id="carec"><h3>${full?'3':'2'} · 🛠️ Algo que puedes hacer tú por ti hoy</h3><p class="hint">Hasta 3 acciones pequeñas que no dependen de nadie más.</p><div id="care"></div><input type="text" id="carex" placeholder="O escribe la tuya y pulsa Enter…" style="margin-top:10px"></div>`;
+  const FITMSG={si:'Tu emoción tiene sentido. Lo útil es <b>resolver el problema</b> o <b>expresarlo</b> con claridad (lo verás en tu informe).',parte:'Tiene una base real, pero va más fuerte de lo que ayuda. Primero baja la intensidad con una herramienta; luego decide qué hacer.',no:'Es probable que reacciones a una interpretación. Aquí sirve la <b>acción opuesta</b>: hacer lo contrario de lo que la emoción te empuja a hacer.'};
+  const paintFit=()=>{const m=$('#fitm');if(m)m.innerHTML=p.fits?`<p class="popin" style="margin-top:12px">${FITMSG[p.fits]}</p>`:'';};
   function paintCare(){
     const opts=uniq([...p.needs.map(n=>SELF[n]).filter(Boolean),...CARE_GEN,...p.care]);
     $('#care').innerHTML=`<div class="chips sm">${opts.map(c=>`<button type="button" class="chip" data-care="${esc(c)}" aria-pressed="${p.care.includes(c)}">${esc(c)}</button>`).join('')}</div>`;
     $$('[data-care]').forEach(b=>b.onclick=()=>{const c=b.dataset.care,k=p.care.indexOf(c);if(k>=0)p.care.splice(k,1);else{if(p.care.length>=3){toast('Máximo 3: mejor pocas y posibles');return;}p.care.push(c);}b.setAttribute('aria-pressed',String(p.care.includes(c)));save();});
   }
+  $$('[data-fit]').forEach(b=>b.onclick=()=>{p.fits=b.dataset.fit;save();$$('[data-fit]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));paintFit();});
   $$('[data-need]').forEach(b=>b.onclick=()=>{const n=b.dataset.need,k=p.needs.indexOf(n);if(k>=0)p.needs.splice(k,1);else{if(p.needs.length>=3){toast('Máximo 3: quédate con las más importantes');return;}p.needs.push(n);}b.setAttribute('aria-pressed',String(p.needs.includes(n)));save();paintCare();if(p.needs.length===1)award('need'+i,10,b);});
-  $('#carex').onkeydown=e=>{if(e.key==='Enter'){const v=e.target.value.trim();if(v&&p.care.length<3){p.care.push(v);save();e.target.value='';paintCare();updateNav();}}};
-  $('#carex').onblur=e=>{const v=e.target.value.trim();if(v&&p.care.length<3&&!p.care.includes(v)){p.care.push(v);save();e.target.value='';paintCare();updateNav();}};
-  paintCare();
-  setGate(()=>!p.needs.length?{ok:false,msg:'Elige al menos una necesidad',focus:'#needs'}:!p.care.length?{ok:false,msg:'Elige algo que puedas hacer por ti',focus:'#carec'}:{ok:true,label:'Ver mi informe ➜'});
+  const addCare=e=>{const v=e.target.value.trim();if(v&&p.care.length<3&&!p.care.includes(v)){p.care.push(v);save();e.target.value='';paintCare();updateNav();}};
+  $('#carex').onkeydown=e=>{if(e.key==='Enter')addCare(e);};$('#carex').onblur=addCare;
+  paintFit();paintCare();
+  setGate(()=>full&&!p.fits?{ok:false,msg:'Responde si tu emoción encaja con los hechos',focus:'#fitc'}:!p.needs.length?{ok:false,msg:'Elige al menos una necesidad',focus:'#needs'}:!p.care.length?{ok:false,msg:'Elige algo que puedas hacer por ti',focus:'#carec'}:{ok:true,label:full?'Siguiente: herramientas ➜':'Ver mi informe ➜'});
 };
 
-function mainSel(i){const p=P(i);return S.mode==='diario'||S.mode==='sos'?p.now:(p.dig.deep||p.dig.surf);}
+/* ---------- caja de herramientas ---------- */
+const TOOLS={
+  suspiro:{i:'🌬️',t:'Suspiro cíclico',d:'1 minuto: doble inhalación por la nariz y exhalación larga por la boca.',why:'En un estudio de Stanford (Balban y colaboradores, 2023), practicar suspiro cíclico 5 minutos al día mejoró el ánimo y bajó la activación física más que la meditación mindfulness.'},
+  ground:{i:'🖐️',t:'Anclaje 5-4-3-2-1',d:'Vuelve al presente usando tus cinco sentidos.',why:'Llevar la atención a los sentidos interrumpe la rumiación y baja la ansiedad. Es una técnica de atención plena muy usada en terapia.'},
+  tipp:{i:'🧊',t:'TIPP para crisis',d:'Si estás en 8 o más: frío, movimiento intenso y respiración.',why:'Habilidad de la terapia dialéctico conductual (DBT). Cambia rápido la activación del cuerpo cuando la emoción es demasiado intensa para pensar.'},
+  compasion:{i:'💗',t:'Pausa de autocompasión',d:'Tres frases para tratarte como tratarías a alguien que quieres.',why:'Propuesta por Kristin Neff. La autocompasión se asocia con menos ansiedad y depresión y con más resiliencia.'},
+  rain:{i:'🌧️',t:'RAIN',d:'Reconocer, permitir, investigar y nutrir lo que sientes.',why:'Práctica de atención plena de Tara Brach. Aceptar una emoción suele funcionar mejor que suprimirla o darle vueltas.'},
+  opuesta:{i:'🔄',t:'Acción opuesta',d:'Haz lo contrario de lo que la emoción te empuja a hacer.',why:'Habilidad de DBT: cuando una emoción no encaja con los hechos, actuar al revés de su impulso reduce su intensidad.'},
+  defusion:{i:'🍃',t:'Hojas en el río',d:'Mira tu pensamiento pasar, sin pelear con él.',why:'Técnica de la terapia de aceptación y compromiso (ACT): ver un pensamiento como un pensamiento, y no como un hecho, le quita fuerza.'},
+  escritura:{i:'✍️',t:'Escritura expresiva',d:'5 minutos escribiendo sin filtro. Es privado.',why:'Los estudios de James Pennebaker muestran que escribir sobre lo que sentimos mejora el bienestar emocional.'},
+  valores:{i:'🧭',t:'Brújula de valores',d:'¿Qué persona quieres ser en esta situación?',why:'En ACT, actuar según tus valores, aunque la emoción siga ahí, da dirección y sentido.'},
+  saborear:{i:'🌞',t:'Saborear',d:'Haz durar más una emoción agradable.',why:'Psicología positiva (Fred Bryant): prestar atención a los detalles de lo bueno y compartirlo prolonga el bienestar.'},
+  please:{i:'🛡️',t:'Revisa tu base',d:'Sueño, comida, movimiento, sustancias y salud.',why:'Habilidad PLEASE de DBT: el cansancio, el hambre o el dolor hacen que las emociones sean más intensas.'}
+};
+const OPP={ira:'Aléjate con amabilidad, baja la voz y trata de ver su punto de vista. Haz algo amable, aunque sea pequeño.',miedo:'Acércate un poco a lo que temes en lugar de evitarlo: un paso pequeño y seguro.',tristeza:'Actívate: muévete, sal a la luz del día y busca contacto con alguien, aunque no tengas ganas.',asco:'Acércate con curiosidad y trata a la persona o situación con respeto.',sorpresa:'Haz una pausa y busca más información antes de reaccionar.',felicidad:'Esta emoción no necesita acción opuesta: disfrútala.'};
+const VALUES=['Respeto','Honestidad','Cuidado','Calma','Valentía','Justicia','Amor','Paciencia','Libertad','Crecimiento','Responsabilidad','Humor'];
+const PLEASE=[['sueno','Dormí lo suficiente'],['comida','Comí de forma equilibrada'],['mov','Me moví o hice ejercicio'],['sust','Sin alcohol ni otras sustancias'],['salud','Sin dolor ni enfermedad']];
+function toolRec(i){
+  const p=P(i),cur=p.t1??p.t0??0,F=p.now?WHEEL[p.now.f].k:null,U=p.under?WHEEL[p.under.f].k:null,r=[];
+  if(cur>=8)r.push('tipp','suspiro');
+  const fam=U||F;
+  if(fam==='ira')r.push('suspiro','valores');
+  if(fam==='miedo')r.push('suspiro','ground');
+  if(fam==='tristeza')r.push('compasion','rain');
+  if(fam==='asco')r.push('valores','rain');
+  if(fam==='felicidad'||fam==='sorpresa')r.push('saborear');
+  if(p.fits==='no'||p.fits==='parte')r.push('opuesta');
+  if(p.thought&&p.thought.trim())r.push('defusion');
+  r.push('suspiro','compasion');
+  return uniq(r).slice(0,3);
+}
+function runTool(id,host,i,bag,onDone){
+  const p=P(i),g=p.g,word=p.now?selWord(p.now,g).toLowerCase():'lo que sientes';
+  const done=()=>{if(!p.tools.includes(id))p.tools.push(id);S.toolsUsed=uniq([...(S.toolsUsed||[]),id]);save();if(S.toolsUsed.length>=3)badge('caja');award('tool_'+id+'_'+i+'_'+(S.maxStep||0),10,host);onDone&&onDone();};
+  const why=`<details class="why" style="margin:0 0 10px"><summary>¿Por qué funciona?</summary><p>${TOOLS[id].why}</p></details>`;
+  const stepper=(steps,fin)=>{let k=0;const paint=()=>{host.innerHTML=why+`<div class="tstep popin"><div class="tprog">${steps.map((_,n)=>`<i class="${n<=k?'on':''}"></i>`).join('')}</div>${steps[k]}<button type="button" class="btn primary small" id="tnext" style="margin-top:12px">${k<steps.length-1?'Siguiente ➜':'Listo ✓'}</button></div>`;
+    $('#tnext',host).onclick=()=>{if(k<steps.length-1){k++;paint();}else{fin&&fin();done();}};};paint();};
+  if(id==='suspiro'){host.innerHTML=why+'<div class="tb"></div>';breathe($('.tb',host),6,()=>{done();},bag,[i],'sigh');return;}
+  if(id==='ground'){
+    const G5=[[5,'cosas que puedes ver','👀'],[4,'cosas que puedes tocar','✋'],[3,'sonidos que puedes oír','👂'],[2,'olores que notas','👃'],[1,'sabor o sensación en la boca','👅']];let k=0,c=0;
+    const paint=()=>{if(k>=G5.length){host.innerHTML=why+`<p class="popin center">🌿 Volviste al presente. Nota cómo está tu respiración ahora.</p>`;done();return;}const[n,t,e]=G5[k];
+      host.innerHTML=why+`<div class="tstep popin center"><div class="gbig">${e}</div><p>Nombra en voz baja <b>${n} ${t}</b>.<br><span class="hint">Toca un círculo por cada una.</span></p><div class="gdots">${Array.from({length:n},(_,d)=>`<button type="button" class="gdot${d<c?' on':''}" data-gd="${d}" aria-label="${d+1}"></button>`).join('')}</div></div>`;
+      $$('[data-gd]',host).forEach(b=>b.onclick=()=>{c++;vib(10);if(c>=n){k++;c=0;bag.push(setTimeout(paint,350));}paint();});};paint();return;}
+  if(id==='tipp'){
+    host.innerHTML=why+`<ul class="tlist">${[['🧊','Temperatura','Moja tu cara con agua fría 30 segundos (o sostén hielo). Activa el reflejo que baja el ritmo cardiaco.'],['🏃','Intensidad','60 segundos de saltos, sentadillas o subir escaleras rápido.'],['🌬️','Respiración pausada','Exhala más largo de lo que inhalas, 1 minuto.'],['💪','Relajación progresiva','Aprieta los puños y hombros 5 segundos y suelta. Repite 3 veces.']].map(([e,t,d],k)=>`<li><label class="checkline"><input type="checkbox" data-tp="${k}"><span><b>${e} ${t}.</b> ${d}</span></label></li>`).join('')}</ul>
+    <div class="row"><button type="button" class="btn ghost small" id="t60">⏱️ Temporizador 60 s</button><span class="big-timer" id="t60v" style="font-size:28px;margin:0"></span></div><button type="button" class="btn primary small" id="tok" style="margin-top:10px" disabled>Hice al menos dos ✓</button>`;
+    $$('[data-tp]',host).forEach(c=>c.onchange=()=>{$('#tok',host).disabled=$$('[data-tp]:checked',host).length<2;});
+    $('#t60',host).onclick=()=>{let s=60;const v=$('#t60v',host);v.textContent=s;const iv=setInterval(()=>{s--;v.textContent=s>0?s:'✓';if(s<=0){clearInterval(iv);vib([100,50,100]);}},1000);bag.push(iv);};
+    $('#tok',host).onclick=done;return;}
+  if(id==='compasion'){stepper([
+    `<p class="hint">Pon una mano en tu pecho. Lee despacio, en voz baja si puedes.</p><div class="say">${esc(G('Este es un momento difícil. Me duele y está bien reconocerlo.',i))}</div><p class="hint">1 · Atención plena: nombrar el dolor sin exagerarlo ni esconderlo.</p>`,
+    `<div class="say">${esc(G('Sentirse así es parte de ser humano. No soy la única persona que se siente así.',i))}</div><p class="hint">2 · Humanidad compartida: no estás solo/a en esto.</p>`.replace('solo/a',gx('solo/a',g)),
+    `<div class="say">${esc(G('Que pueda ser amable conmigo. Que pueda darme lo que necesito.',i))}</div><p class="hint">3 · Amabilidad: háblate como le hablarías a alguien que quieres.</p><div class="avw" style="width:90px;margin:10px auto 0">${avatarSVG(i,'amor')}</div>`],null);return;}
+  if(id==='rain'){const body=p.body.map(z=>BODY.find(b=>b[0]===z)[1].toLowerCase()).join(', ');stepper([
+    `<h3>R · Reconocer</h3><div class="say">Estoy sintiendo ${esc(word)}.</div><p class="hint">Solo nómbralo, sin juzgarlo.</p>`,
+    `<h3>A · Permitir</h3><p>No intentes arreglarlo todavía. Respira tres veces y dite:</p><div class="say">Está bien sentir esto. Puede quedarse un momento.</div>`,
+    `<h3>I · Investigar con amabilidad</h3><p>¿Dónde lo sientes en el cuerpo?${body?` <span class="hint">(marcaste: ${esc(body)})</span>`:''} ¿Qué necesita esta parte de ti?</p>`,
+    `<h3>N · Nutrir</h3><p>¿Qué te diría alguien que te quiere mucho?</p><input type="text" id="rainN" value="${esc(p.nurture)}" placeholder="Ej.: Estás haciendo lo que puedes. Mereces descansar.">`],()=>{const n=$('#rainN',host);if(n){p.nurture=n.value;save();}});return;}
+  if(id==='opuesta'){const fam=p.under?WHEEL[p.under.f].k:p.now?WHEEL[p.now.f].k:'tristeza';
+    host.innerHTML=why+`${p.fits==='si'?'<p class="hint">Dijiste que tu emoción encaja con los hechos: en ese caso suele servir más resolver el problema o expresarlo. Aun así, esto ayuda si la intensidad es muy alta.</p>':''}<div class="say">${esc(OPP[fam])}</div><button type="button" class="btn primary small" id="oppOk" style="margin-top:12px">Me comprometo a hacerlo ✓</button>`;
+    $('#oppOk',host).onclick=()=>{const a='Acción opuesta: '+OPP[fam];if(!p.care.includes(a)&&fam!=='felicidad')p.care.push(a);save();done();};return;}
+  if(id==='defusion'){const th=p.thought.trim();
+    host.innerHTML=why+(th?'':`<input type="text" id="dfIn" placeholder="Escribe el pensamiento que te molesta">`)+`<div class="river"><div class="leaf" id="leaf">🍃 <span id="lt">${esc(th||'…')}</span></div></div><div class="say" id="dfS">${esc(th?defuse(th):'Escribe un pensamiento arriba.')}</div><button type="button" class="btn primary small" id="dfGo" style="margin-top:12px">Dejarlo pasar 🌊</button>`;
+    const inp=$('#dfIn',host);if(inp)inp.oninput=()=>{p.thought=inp.value;save();$('#lt',host).textContent=inp.value||'…';$('#dfS',host).textContent=inp.value?defuse(inp.value):'Escribe un pensamiento arriba.';};
+    $('#dfGo',host).onclick=()=>{if(!p.thought.trim()){toast('Escribe primero el pensamiento');return;}$('#leaf',host).classList.add('go');bag.push(setTimeout(()=>{$('#dfS',host).textContent='El pensamiento sigue siendo solo un pensamiento. Puedes notarlo sin obedecerlo.';done();},2200));};return;}
+  if(id==='escritura'){
+    host.innerHTML=why+`<p class="hint">Escribe lo que sientes y por qué, sin cuidar la ortografía ni el orden. 🔒 Se queda en tu celular.</p><textarea id="jr" rows="6" placeholder="Hoy me siento…">${esc(p.journal)}</textarea><div class="row"><button type="button" class="btn ghost small" id="jrT">⏱️ Empezar 5 minutos</button><span class="big-timer" id="jrV" style="font-size:24px;margin:0"></span></div><button type="button" class="btn primary small" id="jrOk" style="margin-top:10px" ${p.journal.length>80?'':'disabled'}>Terminé ✓</button>`;
+    $('#jr',host).oninput=e=>{p.journal=e.target.value;save();$('#jrOk',host).disabled=p.journal.length<=80;};
+    $('#jrT',host).onclick=e=>{e.currentTarget.disabled=true;let s=300;const v=$('#jrV',host);const iv=setInterval(()=>{s--;v.textContent=fmt(s*1000);if(s<=0){clearInterval(iv);vib([100,50,100]);$('#jrOk',host).disabled=false;}},1000);bag.push(iv);};
+    $('#jrOk',host).onclick=done;return;}
+  if(id==='valores'){
+    host.innerHTML=why+`<p>En esta situación, ¿qué quieres que te represente? Elige 1 o 2 valores.</p><div class="chips sm">${VALUES.map(v=>`<button type="button" class="chip" data-v="${v}" aria-pressed="${p.values.includes(v)}">${v}</button>`).join('')}</div><label class="f" for="va">¿Qué haría hoy la persona que quieres ser?</label><input type="text" id="va" value="${esc(p.valAct)}" placeholder="Ej.: hablar con calma aunque me cueste"><button type="button" class="btn primary small" id="vaOk" style="margin-top:10px">Guardar ✓</button>`;
+    $$('[data-v]',host).forEach(b=>b.onclick=()=>{const v=b.dataset.v,k=p.values.indexOf(v);if(k>=0)p.values.splice(k,1);else{if(p.values.length>=2){toast('Máximo 2');return;}p.values.push(v);}b.setAttribute('aria-pressed',String(p.values.includes(v)));save();});
+    $('#va',host).oninput=e=>{p.valAct=e.target.value;save();};
+    $('#vaOk',host).onclick=()=>{if(!p.values.length||p.valAct.trim().length<4){toast('Elige un valor y escribe una acción');return;}done();};return;}
+  if(id==='saborear'){
+    host.innerHTML=why+`<p>Anota tres detalles de lo que te hizo sentir bien (lo que viste, oíste o sentiste).</p>${[0,1,2].map(k=>`<input type="text" data-sv="${k}" value="${esc(p.savor[k]||'')}" placeholder="Detalle ${k+1}" style="margin-bottom:8px">`).join('')}<p class="hint">Extra: cuéntaselo a alguien hoy. Compartir lo bueno lo multiplica.</p><button type="button" class="btn primary small" id="svOk">Listo ✓</button>`;
+    $$('[data-sv]',host).forEach(inp=>inp.oninput=()=>{p.savor[+inp.dataset.sv]=inp.value;save();});
+    $('#svOk',host).onclick=()=>{if(p.savor.filter(x=>x&&x.trim()).length<2){toast('Escribe al menos dos detalles');return;}done();};return;}
+  if(id==='please'){
+    host.innerHTML=why+`<p>¿Cómo está tu base hoy? Marca lo que <b>sí</b> se cumple.</p><ul class="tlist">${PLEASE.map(([k,t])=>`<li><label class="checkline"><input type="checkbox" data-pl="${k}" ${p.please&&!p.please.includes(k)?'checked':''}><span>${t}</span></label></li>`).join('')}</ul><button type="button" class="btn primary small" id="plOk">Listo ✓</button>`;
+    $('#plOk',host).onclick=()=>{p.please=PLEASE.map(x=>x[0]).filter(k=>!$(`[data-pl="${k}"]`,host).checked);save();host.insertAdjacentHTML('beforeend',`<p class="popin" style="margin-top:10px">${p.please.length?`Hoy te falta: <b>${esc(p.please.map(k=>PLEASE.find(x=>x[0]===k)[1].toLowerCase()).join(', '))}</b>. Eso puede estar subiendo la intensidad de lo que sientes; sé amable contigo.`:'Tu base está bien cuidada. 👏'}</p>`);done();};return;}
+}
+function toolCard(id,doneFlag,rec){const T=TOOLS[id];return`<div class="tool${doneFlag?' done':''}" data-tool="${id}"><button type="button" class="tool-h"><span class="ti">${T.i}</span><span class="tt"><b>${T.t}</b><small>${T.d}</small>${rec?`<em>${rec}</em>`:''}</span><span class="tdone">${doneFlag?'✓':'›'}</span></button><div class="tool-b" hidden></div></div>`;}
+function bindTools(root,i,bag,after){
+  $$('.tool',root).forEach(card=>{const id=card.dataset.tool,b=$('.tool-b',card);
+    $('.tool-h',card).onclick=()=>{const open=!b.hidden;$$('.tool-b',root).forEach(x=>{x.hidden=true;x.innerHTML='';});bag.forEach(t=>{clearTimeout(t);clearInterval(t)});bag.length=0;if(open)return;b.hidden=false;
+      runTool(id,b,i,bag,()=>{card.classList.add('done');$('.tdone',card).textContent='✓';after&&after();updateNav();});
+      card.scrollIntoView({behavior:RM?'auto':'smooth',block:'start'});};});
+}
+V.herramientas=i=>{
+  const p=P(i),rec=toolRec(i),F=p.now?WHEEL[p.now.f]:null,cur=p.t1??p.t0??0;
+  const reason=id=>id==='tipp'?'Porque tu intensidad está alta':id==='opuesta'?'Porque dijiste que no encaja del todo con los hechos':id==='defusion'?'Porque tienes un pensamiento que se repite':F?`Suele ayudar con ${F.n.toLowerCase()}`:'';
+  app.innerHTML=head('herramientas',i,'Elige una herramienta y pruébala')+`
+  ${needsCrisis(i)?crisisCard():''}
+  <h3 style="margin:4px 0 10px">⭐ Recomendadas para ti</h3><div class="tools" id="trec">${rec.map(id=>toolCard(id,p.tools.includes(id),reason(id))).join('')}</div>
+  <details class="card" style="margin-top:14px"><summary>🧰 Más herramientas (${Object.keys(TOOLS).length-rec.length})</summary><div class="tools" style="margin-top:12px">${Object.keys(TOOLS).filter(k=>!rec.includes(k)).map(id=>toolCard(id,p.tools.includes(id))).join('')}</div></details>`;
+  bindTools(app,i,timers);
+  setGate(()=>p.tools.length?{ok:true,label:'Ver mi informe ➜'}:{ok:false,msg:'Prueba al menos una herramienta',focus:'#trec'});
+};
+function openTools(){
+  openSheet();
+  ov.innerHTML=`<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="tbT"><div class="sheet-head"><h2 id="tbT">🧰 Caja de herramientas</h2><button type="button" class="icon-btn" id="tbX" aria-label="Cerrar">✕</button></div>
+  <p class="hint">Técnicas con respaldo en la psicología actual (DBT, TCC, ACT, mindfulness, autocompasión). Úsalas cuando quieras.</p>
+  <div class="tools"><div class="tool"><button type="button" class="tool-h" id="tbW"><span class="ti">🎡</span><span class="tt"><b>Rueda de emociones</b><small>Encuentra la palabra exacta para lo que sientes.</small></span><span class="tdone">›</span></button></div>${Object.keys(TOOLS).map(id=>toolCard(id,false)).join('')}</div></div>`;
+  $('#tbX').onclick=closeSheet;$('#tbW').onclick=openWheel;
+  bindTools(ov,0,ovTimers);
+}
+
+function mainSel(i){const p=P(i);return['diario','sos','rapido'].includes(S.mode)?(p.under||p.now):(p.dig.deep||p.dig.surf);}
 function diaryMsg(i){
-  const p=P(i),w=p.now?selWord(p.now,p.g).toLowerCase():'mal',b=[],sit=trimEnd(p.camera);
-  b.push(sit?`Quiero contarte algo: cuando ${lowerFirst(sit)}, me sentí ${w}.`:`Quiero contarte algo: hoy me he sentido ${w}.`);
+  const p=P(i),w=p.now?selWord(p.now,p.g).toLowerCase():'mal',u=p.under?selWord(p.under,p.g).toLowerCase():'',b=[],sit=trimEnd(p.camera);
+  b.push(sit?`Quiero contarte algo: cuando ${lowerFirst(sit)}, me sentí ${w}${u?`, y en el fondo ${u}`:''}.`:`Quiero contarte algo: hoy me he sentido ${w}${u?`, y en el fondo ${u}`:''}.`);
+  if(p.out.length&&OUT[p.out[0]][2]!==(p.now?WHEEL[p.now.f].k:''))b.push(`Quizá por fuera no se notó así.`);
   if(p.needs.length)b.push(`Lo que necesito es ${listJoin(p.needs.map(n=>NEED_PHRASE[n]||n.toLowerCase()))}.`);
   b.push(p.request.trim()?`Te quiero pedir algo: ${lowerFirst(trimEnd(p.request))}. ¿Te parece?`:'No necesito que lo resuelvas; me ayuda que me escuches.');
   return gx(b.join(' '),p.g,P(1).g);
@@ -1560,31 +1839,45 @@ function diaryMsg(i){
 function histRows(){return(store.get(HKEY)||[]).flatMap(h=>(h.rows||[]).filter(r=>r.fam).map(r=>({...r,date:h.date})));}
 
 V.informe=i=>{
-  const p=P(i),diario=S.mode==='diario',sel=mainSel(i),F=sel?WHEEL[sel.f]:null,word=sel?selWord(sel,p.g):'';
-  const past=F?histRows().filter(r=>r.fam===F.k).length:0;
+  const p=P(i),mode=S.mode,daily=mode==='diario'||mode==='rapido',full=mode==='diario',sel=mainSel(i),F=sel?WHEEL[sel.f]:null;
+  const nowF=p.now?WHEEL[p.now.f]:F,word=p.now&&daily?selWord(p.now,p.g):sel?selWord(sel,p.g):'';
+  const past=F?histRows().filter(r=>r.fam===F.k).length:0,q=quadOf(p.mood);
   const needsTxt=p.needs.map(n=>G(n,i).toLowerCase());
   const today=new Date().toLocaleDateString('es',{weekday:'long',day:'numeric',month:'long'});
-  if(diario&&!p.msgEdited)p.msg=diaryMsg(i);
-  app.innerHTML=head('informe',i,diario?'Tu informe de hoy':'Tu informe')+`
-  <div class="card report-hero" style="--fc:${F?F.c:'#ccc'}"><div class="rh-av">${avatarSVG(i,F?F.k:'neutral')}</div><div><small>${esc(today)}</small><b>${F?F.e:''} ${esc(word||'—')}</b><span>${F?`Familia: ${esc(F.n)}`:''}${p.t0!=null?` · Intensidad ${p.t0}/10`:''}</span></div></div>
-  <div class="card"><h3>🔎 Lo que esto te dice</h3><p>${F?esc(FAM_MSG[F.k]):''}</p>${needsTxt.length?`<p>Ahora mismo tu ${esc(F?F.n.toLowerCase():'emoción')} está pidiendo <b>${esc(listJoin(needsTxt))}</b>. No es algo que haya que eliminar: es información sobre lo que te importa.</p>`:''}
+  if(daily&&!p.msgEdited)p.msg=diaryMsg(i);
+  const toolsDone=p.tools.map(t=>TOOLS[t]).filter(Boolean);
+  app.innerHTML=head('informe',i,full?'Tu informe de hoy':mode==='rapido'?'Tu registro de hoy':'Tu informe')+`
+  <div class="card report-hero" style="--fc:${nowF?nowF.c:'#ccc'}"><div class="rh-av">${avatarSVG(i,nowF?nowF.k:'neutral')}</div><div><small>${esc(today)}</small><b>${nowF?nowF.e:''} ${esc(word||'—')}</b><span>${nowF?`Familia: ${esc(nowF.n)}`:''}${p.t0!=null?` · Intensidad ${p.t0}/10`:''}</span>${q?`<span class="qchip" style="--qc:${QUAD[q].c}">${QUAD[q].e} ${esc(QUAD[q].n)}</span>`:''}</div></div>
+  ${needsCrisis(i)?crisisCard():''}
+  <div class="card"><h3>🔎 Lo que esto te dice</h3>${daily&&p.under&&p.now?`<p>Debajo de sentirte <b>${esc(selWord(p.now,p.g).toLowerCase())}</b> hay <b>${esc(selWord(p.under,p.g).toLowerCase())}</b>. Esa es la emoción que más te conviene atender.</p>`:''}<p>${F?esc(FAM_MSG[F.k]):''}</p>${needsTxt.length?`<p>Tu ${esc(F?F.n.toLowerCase():'emoción')} está pidiendo <b>${esc(listJoin(needsTxt))}</b>. No es algo que haya que eliminar: es información sobre lo que te importa.</p>`:''}
   ${past?`<p class="hint">📊 Es la vez número ${past+1} que registras ${esc(F.n.toLowerCase())}. <a href="#" id="patL">Ver mis patrones</a></p>`:''}</div>
-  ${diario?`<div class="card"><h3>🧭 El mapa de hoy</h3>
+  ${full?`<div class="card"><h3>🎭 Por fuera y por dentro</h3>${icebergD(i)}<p style="margin-top:12px">${gapText(i)}</p></div>
+    <div class="card"><h3>🧭 El mapa de hoy</h3>
     <div class="tr-row"><span class="tr-k">De dónde viene</span><span class="tr-v">${esc(p.trig||'—')}${p.camera.trim()?` · ${esc(p.camera.trim())}`:''}</span></div>
     ${p.body.length?`<div class="tr-row"><span class="tr-k">Dónde lo sientes</span><span class="tr-v">${esc(p.body.map(z=>BODY.find(b=>b[0]===z)[1]).join(', '))}</span></div>`:''}
-    ${p.thought.trim()?`<div class="tr-row"><span class="tr-k">Pensamiento que se repite</span><span class="tr-v">«${esc(p.thought.trim())}»</span>${judge(p.thought).length?'<span class="hint">Pregúntate: ¿es un hecho o una historia que me cuento?</span>':''}</div>`:''}
-    ${p.care.length?`<div class="tr-row"><span class="tr-k">Tu plan para cuidarte</span><ul class="checks">${p.care.map(c=>`<li class="y">${esc(c)}</li>`).join('')}</ul></div>`:''}</div>`
+    ${p.fits?`<div class="tr-row"><span class="tr-k">¿Encaja con los hechos?</span><span class="tr-v">${FITS.find(f=>f[0]===p.fits)[1]} ${esc(FITS.find(f=>f[0]===p.fits)[2])}</span></div>`:''}
+    ${p.please&&p.please.length?`<div class="tr-row"><span class="tr-k">Lo que te hace más vulnerable hoy</span><span class="tr-v">${esc(p.please.map(k=>PLEASE.find(x=>x[0]===k)[1].toLowerCase()).join(', '))}</span></div>`:''}</div>
+    ${p.thought.trim()?`<div class="card"><h3>🧠 Tu pensamiento, revisado</h3><div class="tr-row"><span class="tr-k">Lo que te decías</span><p class="tr-orig" style="text-decoration:none">«${esc(p.thought.trim())}»</p></div>
+      ${p.dist.length?`<div class="tr-row"><span class="tr-k">Trampas mentales</span><span class="tr-v">${esc(p.dist.map(k=>DIST.find(d=>d[0]===k)[1]).join(', '))}</span></div>`:''}
+      ${p.balanced.trim()?`<div class="tr-row"><span class="tr-k">Pensamiento más equilibrado</span><div class="say">${esc(p.balanced.trim())}</div></div>`:''}</div>`:''}
+    <div class="card"><h3>🧰 Lo que hiciste por ti</h3>${toolsDone.length?`<div class="chips sm">${toolsDone.map(T=>`<span class="chip static">${T.i} ${T.t}</span>`).join('')}</div>`:''}
+      ${p.values.length?`<p style="margin-top:10px">🧭 Quieres actuar desde <b>${esc(p.values.join(' y ').toLowerCase())}</b>${p.valAct.trim()?`: ${esc(p.valAct.trim())}`:''}.</p>`:''}
+      ${p.care.length?`<p class="tr-k" style="margin-top:12px">Tu plan para hoy</p><ul class="checks">${p.care.map(c=>`<li class="y">${esc(c)}</li>`).join('')}</ul>`:''}</div>`
+  :mode==='rapido'?`<div class="card soft"><h3>💡 Un siguiente paso</h3><p>Cuando alguien siente ${esc(word.toLowerCase())}, muchas veces necesita <b>${esc(G((p.now&&p.now.m!=null&&WHEEL[p.now.f].m[p.now.m][2])||(FAM_NEEDS[nowF?nowF.k:'tristeza']||['Calma'])[0],i).toLowerCase())}</b>. Prueba una herramienta de un minuto:</p><div class="tools" id="qtool">${toolCard(toolRec(i)[0],p.tools.includes(toolRec(i)[0]))}</div>
+    <button type="button" class="btn ghost block" id="toFull" style="margin-top:12px">🔍 Explorarlo a fondo</button></div>`
   :`<div class="card"><h3>🧊 Tu iceberg</h3>${iceberg(i)}</div>`}
-  <div class="card" id="exc"><h3>🗣️ ${diario?'¿Quieres expresarlo a alguien?':`Cómo decírselo a ${esc(N(1))}`}</h3>
-  ${diario?`<div class="seg" role="group"><button type="button" data-ex="1" aria-pressed="${p.express===true}">Sí, a alguien</button><button type="button" data-ex="0" aria-pressed="${p.express===false}">No, es solo para mí</button></div>`:''}
+  <div class="card" id="exc"><h3>🗣️ ${daily?'¿Quieres expresarlo a alguien?':`Cómo decírselo a ${esc(N(1))}`}</h3>
+  ${daily?`<div class="seg" role="group"><button type="button" data-ex="1" aria-pressed="${p.express===true}">Sí, a alguien</button><button type="button" data-ex="0" aria-pressed="${p.express===false}">No, es solo para mí</button></div>`:''}
   <div id="expr"></div></div>
   <div class="card" id="thE"><h3>🌡️ ¿Cómo estás ahora?</h3>${thermoHTML('tE',p.tEnd,i)}<div id="endMsg"></div></div>`;
   const pl=$('#patL');if(pl)pl.onclick=e=>{e.preventDefault();openPatterns();};
+  const qt=$('#qtool');if(qt)bindTools(qt,i,timers);
+  const tf=$('#toFull');if(tf)tf.onclick=()=>{S.mode='diario';const k=steps().indexOf('iceberg:0');p.istep=p.now?1:0;S.maxStep=k;goTo(k);};
   function paintExpr(){
     const el=$('#expr');
-    if(diario&&p.express!==true){el.innerHTML=p.express===false?'<p class="hint">Perfecto. Conocerte ya es un avance: no todo tiene que decirse.</p>':'';return;}
-    const txt=diario?p.msg:(p.script.trim()||buildScript(i));
-    el.innerHTML=`${diario?`<p class="f" style="margin-top:4px">¿A quién?</p><div class="chips sm" style="margin-bottom:10px">${Object.entries(REL).map(([k,[e,t]])=>`<button type="button" class="chip" data-rel="${k}" aria-pressed="${S.rel===k}">${e} ${t}</button>`).join('')}</div>
+    if(daily&&p.express!==true){el.innerHTML=p.express===false?'<p class="hint">Perfecto. Conocerte ya es un avance: no todo tiene que decirse.</p>':'';return;}
+    const txt=daily?p.msg:(p.script.trim()||buildScript(i));
+    el.innerHTML=`${daily?`<p class="f" style="margin-top:4px">¿A quién?</p><div class="chips sm" style="margin-bottom:10px">${Object.entries(REL).map(([k,[e,t]])=>`<button type="button" class="chip" data-rel="${k}" aria-pressed="${S.rel===k}">${e} ${t}</button>`).join('')}</div>
       <input type="text" id="toName" value="${esc(P(1).name)}" placeholder="Nombre (opcional)" style="margin-bottom:10px">
       <label class="f" for="rq">¿Le quieres pedir algo? <span class="hint">· opcional</span></label><input type="text" id="rq" value="${esc(p.request)}" placeholder="Ej.: que me escuches 10 minutos sin darme consejos">
       ${p.needs.map(n=>REQ[n]).filter(Boolean).length?`<div class="chips sm" style="margin-top:8px">${p.needs.map(n=>REQ[n]).filter(Boolean).map(r=>`<button type="button" class="chip" data-rq="${esc(G(r,i))}">${esc(G(r,i))}</button>`).join('')}</div>`:''}
@@ -1592,11 +1885,11 @@ V.informe=i=>{
       :`<div class="say">${esc(txt)}</div>`}
       <div class="row"><button type="button" class="btn primary small" id="mCopy">Copiar</button>${navigator.share?'<button type="button" class="btn ghost small" id="mShare">Enviar…</button>':''}${'speechSynthesis' in window?'<button type="button" class="btn ghost small" id="mRead">🔊 Ensayar</button>':''}</div>
       <details class="why"><summary>Consejos para decirlo</summary><p>Busca un momento tranquilo y pregunta: «¿Tienes un minuto para algo que me importa?». Habla de ti, no de lo que la otra persona «es». Si se pone a la defensiva, di: «No te estoy culpando; te cuento cómo me sentí».</p></details>`;
-    const cur=()=>diario?p.msg:txt;
+    const cur=()=>daily?p.msg:txt;
     $('#mCopy').onclick=()=>{copy(cur());award('expr'+i,10,$('#mCopy'));};
     const sh=$('#mShare');if(sh)sh.onclick=()=>navigator.share({text:cur()}).catch(()=>{});
     const rd=$('#mRead');if(rd)rd.onclick=()=>speak(cur());
-    if(diario){
+    if(daily){
       const regen=()=>{if(!p.msgEdited){p.msg=diaryMsg(i);$('#msg').value=p.msg;}save();};
       $$('[data-rel]',el).forEach(b=>b.onclick=()=>{S.rel=b.dataset.rel;$$('[data-rel]',el).forEach(x=>x.setAttribute('aria-pressed',String(x===b)));regen();});
       $('#toName').oninput=e=>{P(1).name=e.target.value;save();};
@@ -1608,12 +1901,12 @@ V.informe=i=>{
   $$('[data-ex]').forEach(b=>b.onclick=()=>{p.express=b.dataset.ex==='1';save();$$('[data-ex]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));paintExpr();});
   paintExpr();
   const paintEnd=()=>{const el=$('#endMsg');if(p.tEnd==null){el.innerHTML='';return;}const d=(p.t0??p.tEnd)-p.tEnd;
-    el.innerHTML=`<p style="margin-top:10px">${d>0?`🎉 Bajaste de ${p.t0} a ${p.tEnd}. Ponerle nombre y entenderlo ayudó.`:d===0?'Se mantuvo igual. Está bien: tu plan de cuidado puede ayudar en las próximas horas.':'Subió un poco. A veces pasa al mirar de frente lo que duele; usa tu plan de cuidado.'}</p>`;
+    el.innerHTML=`<p style="margin-top:10px">${d>0?`🎉 Bajaste de ${p.t0} a ${p.tEnd}. Ponerle nombre y entenderlo ayudó.`:d===0?'Se mantuvo igual. Está bien: tu plan de cuidado puede ayudar en las próximas horas.':'Subió un poco. A veces pasa al mirar de frente lo que duele; usa una herramienta o tu plan de cuidado.'}</p>`;
     if(d>0&&award('dropI'+i,Math.min(30,d*5),el)&&d>=3)badge('bajo');};
   bindThermo(app,'tE',p.g,v=>{p.tEnd=v;save();paintEnd();updateNav();});
   paintEnd();
   setGate(()=>{
-    if(diario&&p.express==null)return{ok:false,msg:'Elige si quieres expresarlo a alguien',focus:'#exc'};
+    if(full&&p.express==null)return{ok:false,msg:'Elige si quieres expresarlo a alguien',focus:'#exc'};
     if(p.tEnd==null)return{ok:false,msg:'Vuelve a medir cómo estás',focus:'#thE'};
     return{ok:true,label:'💾 Guardar y terminar',onNext:finish};
   });
@@ -1669,7 +1962,7 @@ function paintPause(){
   :`<p class="lead">Cuando alguien pasa de 7, la conversación deja de servir. Parar no es huir: es cuidar la conversación. Quien pide la pausa dice a qué hora vuelve.</p>
   <div class="grid2"><button type="button" class="btn primary" id="pBreath">🌬️ Respirar 1 min</button><button type="button" class="btn ghost" id="p20">⏱️ Pausa de 20 min</button></div><div id="pBz"></div>`}
   <h3 style="margin-top:18px">🩹 Frases de reparación</h3><p class="hint">Para frenar la escalada en el momento.</p>
-  <ul class="repair">${REPAIR.map(r=>`<li>${esc(gx(r,P(0).g))}</li>`).join('')}</ul></div>`;
+  <ul class="repair">${REPAIR.map(r=>`<li>${esc(gx(r,P(0).g))}</li>`).join('')}</ul><p class="hint" style="margin-top:14px">🆘 Si sientes que no puedes más o piensas en hacerte daño: <a href="https://findahelpline.com/es" target="_blank" rel="noopener">busca la línea de ayuda de tu país</a> o llama a emergencias.</p></div>`;
   $('#pClose').onclick=closeSheet;
   if(active){
     const tick=()=>{const ms=S.pauseUntil-Date.now();if(ms<=0){S.pauseUntil=null;save();vib([200,100,200]);paintPause();toast('Terminó la pausa. Vuelvan cuando los dos estén por debajo de 5.');return;}const el=$('#pTime');if(el)el.textContent=fmt(ms);};
@@ -1691,7 +1984,7 @@ function openWheel(){
 ov.addEventListener('click',e=>{if(e.target===ov)closeSheet();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!ov.hidden)closeSheet();});
 $('#pauseBtn').onclick=openPause;
-$('#wheelBtn').onclick=openWheel;
+$('#wheelBtn').onclick=openTools;
 $('#patBtn').onclick=openPatterns;
 $('#xp').onclick=()=>toast(`💗 ${S.xp} corazones · ${S.badges.length} de ${Object.keys(BADGES).length} logros`);
 setInterval(()=>{const b=$('#pauseBtn');b.textContent=S.pauseUntil&&S.pauseUntil>Date.now()?'⏸ '+fmt(S.pauseUntil-Date.now()):'Pausa';},1000);
