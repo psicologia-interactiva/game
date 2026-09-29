@@ -169,6 +169,29 @@ label.f,.f{display:block;font-weight:800;margin:16px 0 6px}
 .fam-grid .fam{justify-content:center;padding:9px 6px;border-radius:14px}
 .fam-desc{margin:12px 0 8px}
 .wstep{margin:12px 0 0;font-weight:700}
+.bodymap{display:grid;grid-template-columns:120px 1fr;gap:14px;align-items:center}
+.bodyfig .body{width:100%;display:block}
+.body .silu *{fill:var(--surface2);stroke:var(--line);stroke-width:1.5}
+.body .bz{fill:var(--warm);opacity:.16;cursor:pointer;transition:opacity .25s;transform-box:fill-box;transform-origin:center}
+.body .bz:hover{opacity:.35}
+.body .bz.on{opacity:.9;animation:beat 1.3s ease-in-out infinite}
+@keyframes beat{50%{transform:scale(1.25)}}
+.report-hero{display:flex;gap:14px;align-items:center;background:linear-gradient(135deg,color-mix(in srgb,var(--fc) 45%,var(--surface)),var(--surface));border-color:transparent}
+.report-hero .rh-av{width:96px;flex:none}.report-hero .rh-av .avw{width:100%}
+.report-hero small{display:block;color:var(--muted);font-weight:700;text-transform:capitalize}
+.report-hero b{display:block;font-family:ui-serif,Georgia,serif;font-size:26px;line-height:1.2}
+.report-hero span{font-size:14px;color:var(--muted);font-weight:600}
+.pbar{display:grid;grid-template-columns:110px 1fr 28px;gap:10px;align-items:center;margin:8px 0;font-size:14px}
+.pl{font-weight:700;white-space:nowrap}
+.ptrack{height:14px;border-radius:0 4px 4px 0;background:transparent}
+.ptrack i{display:block;height:100%;border-radius:0 4px 4px 0;animation:fill .9s cubic-bezier(.2,.8,.2,1) both}
+.pv{text-align:right;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums}
+.chart{width:100%;height:auto;display:block;overflow:visible}
+.chart .ax{font-size:9px;fill:var(--muted)}
+.chart circle{cursor:pointer}
+.legend{display:flex;gap:16px;font-size:13px;color:var(--muted);font-weight:700;margin-bottom:6px}
+.legend i{display:inline-block;width:14px;height:3px;border-radius:2px;margin-right:6px;vertical-align:middle}
+.chip.static{cursor:default}
 /* entrada de pantallas */
 .enter>*{animation:rise .5s cubic-bezier(.2,.8,.2,1) both}
 .enter.fwd>*{animation-name:inR}.enter.back>*{animation-name:inL}
@@ -448,6 +471,7 @@ a{color:var(--accent)}
     </div>
     <button class="tbtn" id="xp" type="button" aria-label="Corazones de conexión">💗 <b id="xpN">0</b></button>
     <button class="tbtn" id="wheelBtn" type="button" aria-label="Rueda de emociones">🎡</button>
+    <button class="tbtn" id="patBtn" type="button" aria-label="Mis patrones">📊</button>
     <button class="tbtn pause" id="pauseBtn" type="button">Pausa</button>
     <button class="tbtn" id="themeBtn" type="button" aria-label="Cambiar tema">◐</button>
   </div>
@@ -720,36 +744,42 @@ const EMO_RE=(()=>{const stems=new Set(['triste','miedo','dolid','herid','soleda
 
 /* ================= estado ================= */
 const KEY='volver-nosotros-v3',HKEY='volver-nosotros-historial',TKEY='volver-nosotros-tema';
-function newPerson(){return{name:'',g:null,t0:null,t1:null,tEnd:null,breathed:false,now:null,camera:'',story:'',trans:[],dig:{surf:null,deep:null,l4:'',l4x:'',origin:'',step:0},needs:[],request:'',script:'',scriptEdited:false,lugar:{did:'',feel:null,feelX:'',sense:''},appr:''};}
-function fresh(){return{mode:null,first:0,rules:[false,false,false],people:[newPerson(),newPerson()],step:0,maxStep:0,mirror:[null,null],agree:{what:'',when:'',check:'',ok:[false,false]},pauseUntil:null,repair:'',xp:0,aw:{},badges:[],seen:[]};}
+function newPerson(){return{name:'',g:null,body:[],trig:'',thought:'',care:[],express:null,msg:'',msgEdited:false,t0:null,t1:null,tEnd:null,breathed:false,now:null,camera:'',story:'',trans:[],dig:{surf:null,deep:null,l4:'',l4x:'',origin:'',step:0},needs:[],request:'',script:'',scriptEdited:false,lugar:{did:'',feel:null,feelX:'',sense:''},appr:''};}
+function fresh(){return{mode:null,rel:'pareja',first:0,rules:[false,false,false],people:[newPerson(),newPerson()],step:0,maxStep:0,mirror:[null,null],agree:{what:'',when:'',check:'',ok:[false,false]},pauseUntil:null,repair:'',xp:0,aw:{},badges:[],seen:[]};}
 let S=store.get(KEY);
 if(!S||!Array.isArray(S.people)||S.people.length!==2)S=fresh();
 S=Object.assign(fresh(),S);
 S.people=S.people.map(p=>Object.assign(newPerson(),p,{dig:Object.assign(newPerson().dig,p.dig||{}),lugar:Object.assign(newPerson().lugar,p.lugar||{})}));
 const save=()=>store.set(KEY,S);
 const P=i=>S.people[i];
-const N=i=>(P(i).name||'').trim()||(S.mode==='juntos'?`Persona ${i+1}`:(i===0?'Tú':'tu pareja'));
+const REL={pareja:['💞','Pareja','tu pareja'],familia:['🏡','Familia','tu familiar'],amistad:['🤝','Amistad','tu amigo/a'],trabajo:['💼','Trabajo','tu compañero/a'],otra:['👤','Otra persona','la otra persona']};
+const N=i=>(P(i).name||'').trim()||(S.mode==='juntos'?`Persona ${i+1}`:(i===0?'Tú':gx((REL[S.rel]||REL.otra)[2],P(1).g)));
 const G=(t,i)=>gx(t,P(i).g,P(1-i).g);
 const TR_STATE=[null,null];
 function fearWord(d,g){if(d.l4x)return d.l4x.replace(/^que\s+/i,'');return d.l4?gx(d.l4,g):'';}
 function fearScript(d){if(d.l4x)return'que '+d.l4x.replace(/^que\s+/i,'');const f=L4.find(x=>x.t===d.l4);return f?f.s:'';}
 const deepNoun=i=>{const d=P(i).dig;return d.deep?selWord(d.deep,P(i).g).toLowerCase():'';};
-function keepAndReset(mode=null){const keep=S.people.map(p=>({name:p.name,g:p.g}));const{xp,badges,seen,aw}=S;S=fresh();Object.assign(S,{xp,badges,seen,aw,mode});keep.forEach((x,i)=>Object.assign(S.people[i],x));TR_STATE[0]=TR_STATE[1]=null;save();}
+function keepAndReset(mode=null){const keep=S.people.map(p=>({name:p.name,g:p.g}));const{xp,badges,seen,aw,rel}=S;S=fresh();Object.assign(S,{xp,badges,seen,aw,mode,rel});keep.forEach((x,i)=>Object.assign(S.people[i],x));TR_STATE[0]=TR_STATE[1]=null;save();}
 
 const MOMENTS={
-  sos:{i:'🔥',tag:'Durante',t:'Estoy en plena pelea',d:'Para frenar antes de decir algo que duela. 3 a 5 minutos, a solas.'},
-  solo:{i:'🔍',tag:'Después',t:'Ya pasó y quiero entenderla',d:'Para descubrir qué sentías de fondo y preparar qué decir. 10 a 15 minutos, a solas.'},
-  juntos:{i:'💬',tag:'Reparar',t:'Queremos hablarlo juntos',d:'Un celular, por turnos, cuando los dos están algo más en calma. 20 a 30 minutos.'}
+  diario:{i:'📓',tag:'Día a día',t:'¿Cómo me siento hoy?',d:'Registra una emoción, entiende qué te pide y, si quieres, prepara cómo decírselo a alguien. 3 a 5 minutos.'},
+  sos:{i:'🔥',tag:'Durante',t:'Estoy en plena discusión',d:'Para frenar antes de decir algo que duela, con quien sea. 3 a 5 minutos.'},
+  solo:{i:'🔍',tag:'Después',t:'Pasó algo y quiero entenderlo',d:'Un conflicto con tu pareja, familia, trabajo o amistades. Te da un informe y te ayuda a expresarlo. 10 a 15 minutos.'},
+  juntos:{i:'💬',tag:'Reparar',t:'Queremos hablarlo juntos',d:'Dos personas, un celular, por turnos, cuando ambas están algo más en calma. 20 a 30 minutos.'}
 };
 function steps(){
   if(!S.mode)return['inicio'];
+  if(S.mode==='diario')return['inicio','quien','temp:0','nombrar:0','contexto:0','cuido:0','informe:0'];
   if(S.mode==='sos')return['inicio','quien','temp:0','nombrar:0','traductor:0','plan'];
-  if(S.mode==='solo')return['inicio','quien','temp:0','hechos:0','traductor:0','excavador:0','lugar:0','guion:0','acuerdo','cierre'];
+  if(S.mode==='solo')return['inicio','quien','temp:0','hechos:0','traductor:0','excavador:0','lugar:0','guion:0','informe:0'];
   const a=S.first,b=1-a,per=i=>[`turno:${i}`,`hechos:${i}`,`excavador:${i}`,`guion:${i}`];
   return['inicio','quien','temp2',...per(a),...per(b),`espejo:${a}`,`espejo:${b}`,'acuerdo','cierre'];
 }
-const ICON={inicio:['🏠','Inicio'],quien:['👤','Quiénes'],turno:['📱','Cambio de turno'],temp:['🌡️','Temperatura'],temp2:['🌡️','Temperatura'],hechos:['🎥','Qué pasó'],traductor:['🔁','Traductor'],excavador:['🧊','Iceberg'],nombrar:['🏷️','Nombrar'],plan:['🧭','Plan'],lugar:['🔄','Cambio de lugar'],guion:['🗣️','Mensaje'],espejo:['🪞','Cambio de lugar'],acuerdo:['🤝','Acuerdo'],cierre:['🏁','Cierre']};
+const ICON={contexto:['🌱','Qué lo provocó'],cuido:['💚','Qué necesito'],informe:['📋','Tu informe'],inicio:['🏠','Inicio'],quien:['👤','Quiénes'],turno:['📱','Cambio de turno'],temp:['🌡️','Temperatura'],temp2:['🌡️','Temperatura'],hechos:['🎥','Qué pasó'],traductor:['🔁','Traductor'],excavador:['🧊','Iceberg'],nombrar:['🏷️','Nombrar'],plan:['🧭','Plan'],lugar:['🔄','Cambio de lugar'],guion:['🗣️','Mensaje'],espejo:['🪞','Cambio de lugar'],acuerdo:['🤝','Acuerdo'],cierre:['🏁','Cierre']};
 const INFO={
+  contexto:{do:'Elige de qué tema viene. Si quieres, cuenta qué pasó y marca dónde lo sientes en el cuerpo.',why:'Conectar emoción, situación y cuerpo te ayuda a reconocer tus patrones: qué te activa y cómo te avisa el cuerpo antes que la mente.'},
+  cuido:{do:'Elige qué necesitas y una acción pequeña que puedes hacer tú por ti hoy.',why:'Cada emoción apunta a una necesidad. Atenderla tú primero te da calma y claridad; pedirle algo a otra persona es un paso opcional.'},
+  informe:{do:'Lee tu informe. Si quieres, prepara cómo decírselo a alguien. Al final, vuelve a medirte.',why:'Mirar lo que sentiste desde afuera te da distancia. Ponerlo en palabras claras hace más fácil expresarlo sin herir.'},
   quien:{do:'Elige cómo quieres que te hable la app (masculino, femenino o neutro). El nombre es opcional.'},
   temp:{do:'Mueve el termómetro según cómo está tu cuerpo ahora mismo.',why:'Arriba de 7 el cuerpo entra en «modo defensa»: el corazón se acelera y cuesta escuchar. John Gottman lo llama inundación emocional. Bajar primero hace posible todo lo demás.'},
   temp2:{do:'Cada quien marca su temperatura. Si alguno pasa de 7, respiran juntos un minuto.',why:'Nadie puede escuchar con el cuerpo en alerta. Empezar calmados cambia cómo termina la conversación.'},
@@ -758,9 +788,9 @@ const INFO={
   excavador:{do:'Usa la rueda de emociones: primero lo que se veía por fuera y luego lo que sentías por dentro.',why:'En la terapia focalizada en las emociones, el enojo suele ser una emoción secundaria que protege otra más vulnerable, como la tristeza o el miedo. Mostrar esa emoción de fondo invita al otro a acercarse en vez de defenderse.'},
   nombrar:{do:'Toca la emoción que más se parece a lo que sientes ahora.',why:'Ponerle nombre a una emoción reduce su intensidad: los estudios de «etiquetado afectivo» muestran menos activación en la amígdala, el centro de alarma del cerebro.'},
   plan:{do:'Elige qué hacer ahora: pedir una pausa o decir una frase de reparación. Al final, vuelve a medirte.',why:'Una pausa de al menos 20 minutos deja que el cuerpo se calme. Decir a qué hora vuelves evita que el otro la sienta como abandono.'},
-  lugar:{do:'Imagina que tu pareja te hace a ti exactamente lo que tú hiciste y elige cómo te sentirías.',why:'Invertir los papeles despierta la empatía sin tener que adivinar lo que piensa el otro.'},
+  lugar:{do:'Imagina que la otra persona te hace a ti exactamente lo que tú hiciste y elige cómo te sentirías.',why:'Invertir los papeles despierta la empatía sin tener que adivinar lo que piensa el otro.'},
   guion:{do:'Revisa el mensaje que armamos con tus respuestas. Puedes editarlo y agregar un pedido concreto.',why:'Gottman observó que el 96 % de las veces una conversación termina como empezó. Un «arranque suave» (hablar de ti, sin culpar) cambia el final.'},
-  espejo:{do:'Lee lo que vivió tu pareja, ponte en su lugar y dile lo que entendiste.',why:'Sentirse comprendido baja la defensa más que cualquier argumento. No hace falta estar de acuerdo para entender.'},
+  espejo:{do:'Lee lo que vivió la otra persona, ponte en su lugar y dile lo que entendiste.',why:'Sentirse comprendido baja la defensa más que cualquier argumento. No hace falta estar de acuerdo para entender.'},
   acuerdo:{do:'Elijan una sola acción pequeña y concreta para esta semana, y séllenla.',why:'Los acuerdos concretos se cumplen; los generales («comunicarnos mejor») se olvidan.'},
   cierre:{do:'Vuelve a medir tu temperatura para ver cuánto cambió.',why:'Ver que la intensidad bajó ayuda al cerebro a registrar que hablar sí sirve.'}
 };
@@ -949,12 +979,13 @@ V.inicio=()=>{
   app.innerHTML=`<div class="hero"><div class="ha">${avatarSVG(0,'ira')}</div><div class="hero-mid">⚡</div><div class="hb">${avatarSVG(1,'ira')}</div></div>
   <p class="hero-cap" id="heroCap">Discuten y todo suena a ataque…</p>
   <h1 class="center">Volver a Nosotros</h1>
-  <p class="lead center">Una guía para entender qué sientes de verdad en una pelea y poder hablarlo sin herir.</p>
+  <p class="lead center">Una guía para entender lo que sientes, en el día a día o en un conflicto con cualquier persona, y poder expresarlo sin herir.</p>
   ${dirty?`<div class="card soft center"><p style="margin-bottom:10px">Tienes una sesión a medias (${esc(MOMENTS[S.mode].t.toLowerCase())}).</p><div class="row" style="justify-content:center"><button type="button" class="btn primary small" id="resume">Continuar donde iba</button><button type="button" class="btn ghost small" id="restart">Empezar de nuevo</button></div></div>`:''}
   <h2 class="center" style="margin-top:6px">¿En qué momento estás?</h2>
   <div class="moments" role="group">${Object.entries(MOMENTS).map(([k,m])=>`<button type="button" class="moment" data-mode="${k}" aria-pressed="${S.mode===k}"><span class="m-ico">${m.i}</span><span class="m-tag">${m.tag}</span><b>${m.t}</b><span class="m-d">${m.d}</span></button>`).join('')}</div>
-  <p class="hint center">Úsala cada vez que la pelea se repita. No sirve para ganar la discusión: sirve para entenderse.</p>
-  <p class="foot">🔒 Todo se queda en este dispositivo. Esta herramienta no reemplaza a una terapia de pareja. Si en sus peleas hay miedo, amenazas, control o violencia física, busquen apoyo profesional.</p>
+  <p class="hint center">Úsala cuando quieras: para conocerte, para frenar o para reparar. No sirve para ganar discusiones: sirve para entenderse.</p>
+  ${hist.length?`<button type="button" class="btn ghost block" id="patGo" style="margin-top:6px">📊 Ver mis patrones emocionales</button>`:''}
+  <p class="foot">🔒 Todo se queda en este dispositivo. Esta herramienta no reemplaza a una terapia psicológica. Si en tus relaciones hay miedo, amenazas, control o violencia, busca apoyo profesional.</p>
   ${hist.length?`<details class="card"><summary>Sesiones anteriores (${hist.length})</summary><ul class="hist">${hist.slice().reverse().map(x=>`<li><b>${esc(new Date(x.date).toLocaleDateString('es',{day:'numeric',month:'short',year:'numeric'}))}</b> · ${esc(x.label||'')}<br>${x.rows.map(r=>`${esc(r.n)}: ${r.t0??'–'} → ${r.tEnd??'–'}${r.core?` · fondo: ${esc(r.core)}`:''}`).join(' · ')}${x.agree?`<br><span class="hint">Acuerdo: ${esc(x.agree)}</span>`:''}</li>`).join('')}</ul><button type="button" class="btn ghost small" id="clrHist">Borrar historial</button></details>`:''}`;
   const story=[['ira','ira','⚡','Discuten y todo suena a ataque…'],['tristeza','ira','⚡','Pero debajo del enojo había tristeza…'],['tristeza','sorpresa','💡','Cuando por fin se ve lo de fondo…'],['amor','amor','💞','…pueden volver a encontrarse.']];
   let k=0;const play=()=>{const[a,b,mid,cap]=story[k%story.length];setAv($('.ha'),a,7);setAv($('.hb'),b,7);$('.hero-mid').textContent=mid;$('#heroCap').textContent=cap;k++;};
@@ -965,6 +996,7 @@ V.inicio=()=>{
     if(dirty||S.mode)keepAndReset(m);else{S.mode=m;save();}
     $$('[data-mode]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));paintJourney();updateNav();
   });
+  const pg=$('#patGo');if(pg)pg.onclick=openPatterns;
   const rs=$('#resume');if(rs)rs.onclick=()=>goTo(Math.max(1,S.maxStep));
   const rt=$('#restart');if(rt)rt.onclick=()=>{if(confirm('¿Borrar la sesión a medias y empezar de nuevo?')){keepAndReset(null);render();}};
   const ch=$('#clrHist');if(ch)ch.onclick=()=>{if(confirm('¿Borrar todas las sesiones guardadas?')){store.del(HKEY);render();}};
@@ -972,20 +1004,22 @@ V.inicio=()=>{
 };
 
 V.quien=()=>{
-  const m=S.mode,lab=m==='juntos'?['Persona 1','Persona 2']:['Tú','Tu pareja'];
+  const m=S.mode,lab=m==='juntos'?['Persona 1','Persona 2']:['Tú','La otra persona'],ids=m==='diario'?[0]:[0,1];
+  const relCard=m==='sos'||m==='solo'?`<div class="card" id="relc"><h3>¿Con quién fue?</h3><div class="chips">${Object.entries(REL).map(([k,[e,t]])=>`<button type="button" class="chip" data-rel="${k}" aria-pressed="${S.rel===k}">${e} ${t}</button>`).join('')}</div></div>`:'';
   const gprev=i=>!P(i).g?'':(m!=='juntos'&&i===0?`Así te hablaré: «te sentiste ${gx('escuchado/a',P(i).g)}»`:`Así le hablaré: «se sintió ${gx('escuchado/a',P(i).g)}»`);
   const gseg=i=>`<div class="seg three" role="group">${[['o','Masculino'],['a','Femenino'],['x','Neutro']].map(([g,l])=>`<button type="button" data-g="${i}:${g}" aria-pressed="${P(i).g===g}">${l}</button>`).join('')}</div>`;
-  app.innerHTML=head('quien',null,m==='juntos'?'¿Quiénes van a participar?':'Antes de empezar')+
-  [0,1].map(i=>`<div class="card" id="pc${i}"><div class="prow"><div class="pav">${avatarSVG(i,'felicidad')}</div><div style="flex:1;min-width:0"><label class="f" for="nm${i}" style="margin-top:0">${lab[i]} <span class="hint">· nombre opcional</span></label><input type="text" id="nm${i}" data-name="${i}" maxlength="24" value="${esc(P(i).name)}" placeholder="Nombre" autocomplete="off" autocapitalize="words"></div></div>
+  app.innerHTML=head('quien',null,m==='juntos'?'¿Quiénes van a participar?':'Antes de empezar',m==='diario'?'Elige cómo quieres que te hable la app. El nombre es opcional.':null)+relCard+
+  ids.map(i=>`<div class="card" id="pc${i}"><div class="prow"><div class="pav">${avatarSVG(i,'felicidad')}</div><div style="flex:1;min-width:0"><label class="f" for="nm${i}" style="margin-top:0">${lab[i]} <span class="hint">· nombre opcional</span></label><input type="text" id="nm${i}" data-name="${i}" maxlength="24" value="${esc(P(i).name)}" placeholder="Nombre" autocomplete="off" autocapitalize="words"></div></div>
   <p class="f" style="margin-bottom:8px">¿Cómo ${m!=='juntos'&&i===0?'quieres que te hable':'le hablo'}?</p>${gseg(i)}<p class="hint" data-gp="${i}">${gprev(i)}</p></div>`).join('')+
   (m==='juntos'?`<div class="card"><h3>¿Quién empieza?</h3><p class="hint">Sugerencia: quien se sintió más incomprendido/a esta vez. Así es la primera persona en ser escuchada.</p><div class="seg" role="group">${[0,1].map(i=>`<button type="button" data-first="${i}" aria-pressed="${S.first===i}">${esc(N(i))}</button>`).join('')}</div></div>
   <div class="card soft" id="rules"><h3>Acepten las reglas</h3>${['Hablamos de <b>una sola</b> situación, no de toda la historia.','Aquí nadie gana: el objetivo es <b>entendernos</b>.','Si alguien pasa de 7 en el termómetro, usamos <b>Pausa</b>.'].map((r,k)=>`<label class="checkline"><input type="checkbox" data-rule="${k}" ${S.rules[k]?'checked':''}><span>${r}</span></label>`).join('')}</div>`:'');
   $$('[data-g]').forEach(b=>b.onclick=()=>{const[i,g]=b.dataset.g.split(':');P(+i).g=g;save();$$(`[data-g^="${i}:"]`).forEach(x=>x.setAttribute('aria-pressed',String(x===b)));$(`[data-gp="${i}"]`).textContent=gprev(+i);$(`#pc${i} .pav`).innerHTML=avatarSVG(+i,'felicidad');});
   $$('[data-first]').forEach(b=>b.onclick=()=>{S.first=+b.dataset.first;save();$$('[data-first]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));paintJourney();});
   $$('[data-name]').forEach(inp=>inp.oninput=()=>{P(+inp.dataset.name).name=inp.value;save();$$('[data-first]').forEach(b=>b.textContent=N(+b.dataset.first));});
+  $$('[data-rel]').forEach(b=>b.onclick=()=>{S.rel=b.dataset.rel;save();$$('[data-rel]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));});
   $$('[data-rule]').forEach(c=>c.onchange=()=>{S.rules[+c.dataset.rule]=c.checked;save();});
   setGate(()=>{
-    for(const i of[0,1])if(!P(i).g)return{ok:false,msg:m!=='juntos'&&i===0?'Elige cómo quieres que te hable':`Elige cómo hablarle a ${N(i)}`,focus:`#pc${i} .seg`};
+    for(const i of ids)if(!P(i).g)return{ok:false,msg:m!=='juntos'&&i===0?'Elige cómo quieres que te hable':`Elige cómo hablarle a ${N(i)}`,focus:`#pc${i} .seg`};
     if(m==='juntos'&&S.rules.some(r=>!r))return{ok:false,msg:'Acepten las 3 reglas',focus:'#rules'};
     return{ok:true,label:'Siguiente'};
   });
@@ -993,7 +1027,7 @@ V.quien=()=>{
 
 V.temp=i=>{
   const p=P(i),sos=S.mode==='sos';
-  app.innerHTML=head('temp',i,sos?'Primero, frena. ¿Qué tan encendido está tu cuerpo?':G('¿Qué tan activado/a está tu cuerpo ahora?',i))+`<div class="card" id="th0">${thermoHTML('t0',p.t0,i)}</div><div id="after"></div>`;
+  app.innerHTML=head('temp',i,sos?'Primero, frena. ¿Qué tan encendido está tu cuerpo?':S.mode==='diario'?'¿Qué tan intenso es lo que sientes ahora?':G('¿Qué tan activado/a está tu cuerpo ahora?',i),S.mode==='diario'?'Mueve el termómetro según la intensidad de tu emoción: 0 es calma total, 10 es desbordado.':null)+`<div class="card" id="th0">${thermoHTML('t0',p.t0,i)}</div><div id="after"></div>`;
   bindThermo(app,'t0',p.g,v=>{p.t0=v;p.breathed=false;p.t1=null;save();award('temp'+i,5,$('.temp-num'));paint();updateNav();});
   function paint(){
     const el=$('#after');if(p.t0==null){el.innerHTML='';return;}
@@ -1423,7 +1457,7 @@ function summaryText(){
 }
 function finish(){
   const ids=S.mode==='juntos'?[0,1]:[0];
-  const h=store.get(HKEY)||[];h.push({date:new Date().toISOString(),label:MOMENTS[S.mode].t,rows:ids.map(i=>({n:N(i),t0:P(i).t0,tEnd:P(i).tEnd,core:deepNoun(i)||(P(i).now?selWord(P(i).now,P(i).g).toLowerCase():'')})),agree:S.agree.what.trim()});store.set(HKEY,h.slice(-30));
+  const h=store.get(HKEY)||[];h.push({date:new Date().toISOString(),mode:S.mode,label:MOMENTS[S.mode].t,rows:ids.map(i=>{const sel=mainSel(i);return{n:N(i),t0:P(i).t0,tEnd:P(i).tEnd,core:deepNoun(i)||(P(i).now?selWord(P(i).now,P(i).g).toLowerCase():''),fam:sel?WHEEL[sel.f].k:null,word:sel?selWord(sel,P(i).g):'',needs:P(i).needs.slice(),trig:P(i).trig||(S.mode!=='diario'&&S.mode!=='juntos'?(REL[S.rel]||REL.otra)[1]:'')};}),agree:S.agree.what.trim()});store.set(HKEY,h.slice(-30));
   const txt=summaryText();
   openSheet();confetti(innerWidth/2,innerHeight/3,140);
   ov.innerHTML=`<div class="sheet center" role="dialog" aria-modal="true"><div class="scene"><div class="sa">${avatarSVG(0,'amor')}</div><div class="mid">🏁</div><div class="sa">${avatarSVG(1,S.mode==='juntos'?'amor':'calma')}</div></div>
@@ -1461,6 +1495,163 @@ V.cierre=()=>{
   paintRes(false);
   setGate(()=>{const miss=ids.find(i=>P(i).tEnd==null);return miss!=null?{ok:false,msg:ids.length>1?`Falta la temperatura de ${N(miss)}`:'Vuelve a medir tu temperatura',focus:`#thE${miss}`}:{ok:true,label:'🏁 Terminar sesión',onNext:finish};});
 };
+
+/* ================= día a día: contexto, cuidado, informe ================= */
+const TRIG=[['💼','Trabajo o estudio'],['💞','Pareja'],['🏡','Familia'],['🤝','Amistades'],['🩺','Salud o cuerpo'],['💸','Dinero'],['📱','Redes o noticias'],['🪞','Algo sobre mí'],['❓','No lo sé']];
+const BODY=[['cabeza','Cabeza',[[60,22]]],['garganta','Garganta',[[60,47]]],['hombros','Hombros y cuello',[[38,60],[82,60]]],['pecho','Pecho',[[60,80]]],['estomago','Estómago',[[60,106]]],['manos','Manos',[[18,128],[102,128]]],['piernas','Piernas',[[50,168],[70,168]]]];
+const BODY_NOTE={cabeza:'Presión o ideas que no paran: suele ir con preocupación o enojo.',garganta:'Nudo en la garganta: a menudo es tristeza o algo que no se ha dicho.',hombros:'Tensión en hombros y cuello: carga, estrés o sensación de alerta.',pecho:'Opresión o latidos fuertes: ansiedad, miedo o tristeza.',estomago:'Nudo o vacío en el estómago: nervios, miedo o rechazo.',manos:'Manos tensas o inquietas: ganas de actuar, frustración o nervios.',piernas:'Inquietud o pesadez en las piernas: ganas de huir o cansancio.'};
+const FAM_NEEDS={ira:['Respeto','Justicia'],asco:['Respeto','Espacio'],tristeza:['Cercanía','Cuidado'],miedo:['Seguridad','Calma'],sorpresa:['Estabilidad','Paciencia'],felicidad:['Tiempo juntos','Aprecio']};
+const FAM_MSG={ira:'La ira avisa que algo te pareció injusto o que se cruzó un límite. La pregunta útil es: ¿qué límite, y cómo lo cuido sin atacar?',asco:'El rechazo avisa que algo choca con tus valores. Te ayuda a saber qué no quieres permitir.',tristeza:'La tristeza avisa una pérdida o una distancia. Pide pausa, consuelo y cercanía, no prisa.',miedo:'El miedo avisa una amenaza, real o imaginada. Ayuda separar lo que depende de ti de lo que no.',sorpresa:'La sorpresa aparece ante lo inesperado. Date tiempo antes de sacar conclusiones.',felicidad:'La alegría te muestra lo que te hace bien. Notarlo te ayuda a buscarlo más seguido.'};
+const SELF={'Ser escuchado/a':'Contárselo a alguien de confianza o escribirlo','Atención':'Hacer algo que me guste solo por gusto','Cercanía':'Escribirle a alguien que quiero','Ternura':'Darme un momento amable: una ducha, una manta, música','Tiempo juntos':'Proponer un plan pequeño con alguien','Importancia':'Recordar tres cosas que valoro de mí','Seguridad':'Anotar qué depende de mí y qué no','Confianza':'Preguntar en vez de suponer','Cuidado':'Comer bien y descansar hoy','Estabilidad':'Ordenar mi día en tres pasos','Reconocimiento':'Anotar tres cosas que hice bien hoy','Aprecio':'Agradecerme algo que hice','Respeto':'Decir un límite claro y amable','Aceptación':'Decirme: «tiene sentido que me sienta así»','Validación':'Decirme: «lo que siento es válido»','Apoyo':'Pedir ayuda concreta a alguien','Equipo':'Pedir que repartamos una tarea','Reciprocidad':'Pedir que repartamos una tarea','Ser tomado/a en cuenta':'Decir mi opinión en la próxima decisión','Justicia':'Escribir qué me parece injusto y qué pediría','Autonomía':'Tomar una decisión pequeña solo por mí','Espacio':'Darme 30 minutos a solas','Descanso':'Acostarme más temprano hoy','Paciencia':'Darme permiso de no resolverlo hoy','Calma':'Respirar un minuto con exhalación larga'};
+const CARE_GEN=['Respirar un minuto con exhalación larga','Caminar 10 minutos','Tomar agua y comer algo','Escribir lo que siento','Hablar con alguien de confianza'];
+
+function bodySVG(p){return`<svg viewBox="0 0 120 200" class="body" aria-hidden="true">
+  <g class="silu"><circle cx="60" cy="22" r="15"/><rect x="54" y="35" width="12" height="10" rx="4"/><path d="M34 50 Q60 42 86 50 L90 120 Q60 128 30 120Z"/><path d="M34 52 L14 124 L23 127 L40 70Z"/><path d="M86 52 L106 124 L97 127 L80 70Z"/><path d="M40 120 L44 194 L56 194 L58 128Z"/><path d="M80 120 L76 194 L64 194 L62 128Z"/></g>
+  ${BODY.map(([k,,pts])=>pts.map(([x,y])=>`<circle class="bz${p.body.includes(k)?' on':''}" data-z="${k}" cx="${x}" cy="${y}" r="10"/>`).join('')).join('')}</svg>`;}
+
+V.contexto=i=>{
+  const p=P(i);
+  app.innerHTML=head('contexto',i,'¿De dónde viene?')+`
+  <div class="card" id="trc"><h3>1 · ¿De qué tema viene?</h3><div class="chips">${TRIG.map(([e,t])=>`<button type="button" class="chip" data-tr="${esc(t)}" aria-pressed="${p.trig===t}">${e} ${esc(t)}</button>`).join('')}</div>
+  <label class="f" for="sit">¿Qué pasó? <span class="hint">· opcional</span></label><textarea id="sit" rows="2" placeholder="Ej.: me cambiaron la entrega para mañana sin avisarme">${esc(p.camera)}</textarea></div>
+  <div class="card"><h3>2 · ¿Dónde lo sientes en el cuerpo? <span class="hint">· opcional</span></h3><p class="hint">Toca el dibujo o los nombres. El cuerpo suele avisar antes que la mente.</p>
+  <div class="bodymap"><div class="bodyfig">${bodySVG(p)}</div><div><div class="chips sm">${BODY.map(([k,l])=>`<button type="button" class="chip" data-zc="${k}" aria-pressed="${p.body.includes(k)}">${l}</button>`).join('')}</div></div></div><div id="bnote"></div></div>
+  <div class="card"><label class="f" for="tho" style="margin-top:0">3 · ¿Qué pensamiento se repite? <span class="hint">· opcional</span></label><textarea id="tho" rows="2" placeholder="Ej.: «Nunca hago nada bien»">${esc(p.thought)}</textarea><div id="thfb"></div></div>`;
+  const paintBody=()=>{$$('[data-z]').forEach(c=>c.classList.toggle('on',p.body.includes(c.dataset.z)));$$('[data-zc]').forEach(c=>c.setAttribute('aria-pressed',String(p.body.includes(c.dataset.zc))));
+    $('#bnote').innerHTML=p.body.length?`<ul class="tips popin" style="margin-top:12px">${p.body.map(z=>`<li>${esc(BODY_NOTE[z])}</li>`).join('')}</ul>`:'';};
+  const toggleZ=z=>{const k=p.body.indexOf(z);k>=0?p.body.splice(k,1):p.body.push(z);save();vib(10);paintBody();};
+  $$('[data-z]').forEach(c=>c.addEventListener('click',()=>toggleZ(c.dataset.z)));
+  $$('[data-zc]').forEach(c=>c.onclick=()=>toggleZ(c.dataset.zc));
+  $$('[data-tr]').forEach(b=>b.onclick=()=>{p.trig=b.dataset.tr;save();$$('[data-tr]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));});
+  $('#sit').oninput=e=>{p.camera=e.target.value;save();};
+  const paintTh=()=>{const j=judge(p.thought).filter(x=>/generaliz|juicio|conclusi/.test(x.tip));$('#thfb').innerHTML=j.length?`<div class="warnbox">💡 Los pensamientos con «siempre», «nunca» o etiquetas suelen exagerar cuando estamos mal. ¿Qué te diría una amistad que te quiere?</div>`:'';};
+  $('#tho').oninput=e=>{p.thought=e.target.value;save();paintTh();};
+  paintBody();paintTh();
+  setGate(()=>p.trig?{ok:true,label:'Siguiente'}:{ok:false,msg:'Elige de qué tema viene',focus:'#trc'});
+};
+
+V.cuido=i=>{
+  const p=P(i),F=p.now?WHEEL[p.now.f]:null,M=p.now&&p.now.m!=null?F.m[p.now.m]:null;
+  const sug=uniq([M&&M[2],...(F?FAM_NEEDS[F.k]:[])].filter(Boolean));
+  app.innerHTML=head('cuido',i,'¿Qué necesitas?')+`
+  <div class="card" id="needs"><h3>1 · Lo que tu emoción está pidiendo</h3><p class="hint">Elige de 1 a 3.${sug.length?' Las marcadas con ★ suelen ir con lo que sientes.':''}</p>${Object.entries(NEEDS).map(([grp,arr])=>`<p class="grp">${grp}</p><div class="chips">${arr.map(n=>`<button type="button" class="chip ${sug.includes(n)?'sug':''}" data-need="${esc(n)}" aria-pressed="${p.needs.includes(n)}">${esc(G(n,i))}</button>`).join('')}</div>`).join('')}</div>
+  <div class="card" id="carec"><h3>2 · 🛠️ Algo que puedes hacer tú por ti hoy</h3><p class="hint">Elige hasta 3 acciones pequeñas. No depende de nadie más.</p><div id="care"></div>
+  <input type="text" id="carex" placeholder="O escribe la tuya…" style="margin-top:10px"></div>`;
+  function paintCare(){
+    const opts=uniq([...p.needs.map(n=>SELF[n]).filter(Boolean),...CARE_GEN,...p.care]);
+    $('#care').innerHTML=`<div class="chips sm">${opts.map(c=>`<button type="button" class="chip" data-care="${esc(c)}" aria-pressed="${p.care.includes(c)}">${esc(c)}</button>`).join('')}</div>`;
+    $$('[data-care]').forEach(b=>b.onclick=()=>{const c=b.dataset.care,k=p.care.indexOf(c);if(k>=0)p.care.splice(k,1);else{if(p.care.length>=3){toast('Máximo 3: mejor pocas y posibles');return;}p.care.push(c);}b.setAttribute('aria-pressed',String(p.care.includes(c)));save();});
+  }
+  $$('[data-need]').forEach(b=>b.onclick=()=>{const n=b.dataset.need,k=p.needs.indexOf(n);if(k>=0)p.needs.splice(k,1);else{if(p.needs.length>=3){toast('Máximo 3: quédate con las más importantes');return;}p.needs.push(n);}b.setAttribute('aria-pressed',String(p.needs.includes(n)));save();paintCare();if(p.needs.length===1)award('need'+i,10,b);});
+  $('#carex').onkeydown=e=>{if(e.key==='Enter'){const v=e.target.value.trim();if(v&&p.care.length<3){p.care.push(v);save();e.target.value='';paintCare();updateNav();}}};
+  $('#carex').onblur=e=>{const v=e.target.value.trim();if(v&&p.care.length<3&&!p.care.includes(v)){p.care.push(v);save();e.target.value='';paintCare();updateNav();}};
+  paintCare();
+  setGate(()=>!p.needs.length?{ok:false,msg:'Elige al menos una necesidad',focus:'#needs'}:!p.care.length?{ok:false,msg:'Elige algo que puedas hacer por ti',focus:'#carec'}:{ok:true,label:'Ver mi informe ➜'});
+};
+
+function mainSel(i){const p=P(i);return S.mode==='diario'||S.mode==='sos'?p.now:(p.dig.deep||p.dig.surf);}
+function diaryMsg(i){
+  const p=P(i),w=p.now?selWord(p.now,p.g).toLowerCase():'mal',b=[],sit=trimEnd(p.camera);
+  b.push(sit?`Quiero contarte algo: cuando ${lowerFirst(sit)}, me sentí ${w}.`:`Quiero contarte algo: hoy me he sentido ${w}.`);
+  if(p.needs.length)b.push(`Lo que necesito es ${listJoin(p.needs.map(n=>NEED_PHRASE[n]||n.toLowerCase()))}.`);
+  b.push(p.request.trim()?`Te quiero pedir algo: ${lowerFirst(trimEnd(p.request))}. ¿Te parece?`:'No necesito que lo resuelvas; me ayuda que me escuches.');
+  return gx(b.join(' '),p.g,P(1).g);
+}
+function histRows(){return(store.get(HKEY)||[]).flatMap(h=>(h.rows||[]).filter(r=>r.fam).map(r=>({...r,date:h.date})));}
+
+V.informe=i=>{
+  const p=P(i),diario=S.mode==='diario',sel=mainSel(i),F=sel?WHEEL[sel.f]:null,word=sel?selWord(sel,p.g):'';
+  const past=F?histRows().filter(r=>r.fam===F.k).length:0;
+  const needsTxt=p.needs.map(n=>G(n,i).toLowerCase());
+  const today=new Date().toLocaleDateString('es',{weekday:'long',day:'numeric',month:'long'});
+  if(diario&&!p.msgEdited)p.msg=diaryMsg(i);
+  app.innerHTML=head('informe',i,diario?'Tu informe de hoy':'Tu informe')+`
+  <div class="card report-hero" style="--fc:${F?F.c:'#ccc'}"><div class="rh-av">${avatarSVG(i,F?F.k:'neutral')}</div><div><small>${esc(today)}</small><b>${F?F.e:''} ${esc(word||'—')}</b><span>${F?`Familia: ${esc(F.n)}`:''}${p.t0!=null?` · Intensidad ${p.t0}/10`:''}</span></div></div>
+  <div class="card"><h3>🔎 Lo que esto te dice</h3><p>${F?esc(FAM_MSG[F.k]):''}</p>${needsTxt.length?`<p>Ahora mismo tu ${esc(F?F.n.toLowerCase():'emoción')} está pidiendo <b>${esc(listJoin(needsTxt))}</b>. No es algo que haya que eliminar: es información sobre lo que te importa.</p>`:''}
+  ${past?`<p class="hint">📊 Es la vez número ${past+1} que registras ${esc(F.n.toLowerCase())}. <a href="#" id="patL">Ver mis patrones</a></p>`:''}</div>
+  ${diario?`<div class="card"><h3>🧭 El mapa de hoy</h3>
+    <div class="tr-row"><span class="tr-k">De dónde viene</span><span class="tr-v">${esc(p.trig||'—')}${p.camera.trim()?` · ${esc(p.camera.trim())}`:''}</span></div>
+    ${p.body.length?`<div class="tr-row"><span class="tr-k">Dónde lo sientes</span><span class="tr-v">${esc(p.body.map(z=>BODY.find(b=>b[0]===z)[1]).join(', '))}</span></div>`:''}
+    ${p.thought.trim()?`<div class="tr-row"><span class="tr-k">Pensamiento que se repite</span><span class="tr-v">«${esc(p.thought.trim())}»</span>${judge(p.thought).length?'<span class="hint">Pregúntate: ¿es un hecho o una historia que me cuento?</span>':''}</div>`:''}
+    ${p.care.length?`<div class="tr-row"><span class="tr-k">Tu plan para cuidarte</span><ul class="checks">${p.care.map(c=>`<li class="y">${esc(c)}</li>`).join('')}</ul></div>`:''}</div>`
+  :`<div class="card"><h3>🧊 Tu iceberg</h3>${iceberg(i)}</div>`}
+  <div class="card" id="exc"><h3>🗣️ ${diario?'¿Quieres expresarlo a alguien?':`Cómo decírselo a ${esc(N(1))}`}</h3>
+  ${diario?`<div class="seg" role="group"><button type="button" data-ex="1" aria-pressed="${p.express===true}">Sí, a alguien</button><button type="button" data-ex="0" aria-pressed="${p.express===false}">No, es solo para mí</button></div>`:''}
+  <div id="expr"></div></div>
+  <div class="card" id="thE"><h3>🌡️ ¿Cómo estás ahora?</h3>${thermoHTML('tE',p.tEnd,i)}<div id="endMsg"></div></div>`;
+  const pl=$('#patL');if(pl)pl.onclick=e=>{e.preventDefault();openPatterns();};
+  function paintExpr(){
+    const el=$('#expr');
+    if(diario&&p.express!==true){el.innerHTML=p.express===false?'<p class="hint">Perfecto. Conocerte ya es un avance: no todo tiene que decirse.</p>':'';return;}
+    const txt=diario?p.msg:(p.script.trim()||buildScript(i));
+    el.innerHTML=`${diario?`<p class="f" style="margin-top:4px">¿A quién?</p><div class="chips sm" style="margin-bottom:10px">${Object.entries(REL).map(([k,[e,t]])=>`<button type="button" class="chip" data-rel="${k}" aria-pressed="${S.rel===k}">${e} ${t}</button>`).join('')}</div>
+      <input type="text" id="toName" value="${esc(P(1).name)}" placeholder="Nombre (opcional)" style="margin-bottom:10px">
+      <label class="f" for="rq">¿Le quieres pedir algo? <span class="hint">· opcional</span></label><input type="text" id="rq" value="${esc(p.request)}" placeholder="Ej.: que me escuches 10 minutos sin darme consejos">
+      ${p.needs.map(n=>REQ[n]).filter(Boolean).length?`<div class="chips sm" style="margin-top:8px">${p.needs.map(n=>REQ[n]).filter(Boolean).map(r=>`<button type="button" class="chip" data-rq="${esc(G(r,i))}">${esc(G(r,i))}</button>`).join('')}</div>`:''}
+      <p class="f">Tu mensaje</p><textarea id="msg" rows="5">${esc(txt)}</textarea>`
+      :`<div class="say">${esc(txt)}</div>`}
+      <div class="row"><button type="button" class="btn primary small" id="mCopy">Copiar</button>${navigator.share?'<button type="button" class="btn ghost small" id="mShare">Enviar…</button>':''}${'speechSynthesis' in window?'<button type="button" class="btn ghost small" id="mRead">🔊 Ensayar</button>':''}</div>
+      <details class="why"><summary>Consejos para decirlo</summary><p>Busca un momento tranquilo y pregunta: «¿Tienes un minuto para algo que me importa?». Habla de ti, no de lo que la otra persona «es». Si se pone a la defensiva, di: «No te estoy culpando; te cuento cómo me sentí».</p></details>`;
+    const cur=()=>diario?p.msg:txt;
+    $('#mCopy').onclick=()=>{copy(cur());award('expr'+i,10,$('#mCopy'));};
+    const sh=$('#mShare');if(sh)sh.onclick=()=>navigator.share({text:cur()}).catch(()=>{});
+    const rd=$('#mRead');if(rd)rd.onclick=()=>speak(cur());
+    if(diario){
+      const regen=()=>{if(!p.msgEdited){p.msg=diaryMsg(i);$('#msg').value=p.msg;}save();};
+      $$('[data-rel]',el).forEach(b=>b.onclick=()=>{S.rel=b.dataset.rel;$$('[data-rel]',el).forEach(x=>x.setAttribute('aria-pressed',String(x===b)));regen();});
+      $('#toName').oninput=e=>{P(1).name=e.target.value;save();};
+      $('#rq').oninput=e=>{p.request=e.target.value;regen();};
+      $$('[data-rq]',el).forEach(b=>b.onclick=()=>{p.request=b.dataset.rq;$('#rq').value=p.request;regen();});
+      $('#msg').oninput=e=>{p.msg=e.target.value;p.msgEdited=true;save();};
+    }
+  }
+  $$('[data-ex]').forEach(b=>b.onclick=()=>{p.express=b.dataset.ex==='1';save();$$('[data-ex]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));paintExpr();});
+  paintExpr();
+  const paintEnd=()=>{const el=$('#endMsg');if(p.tEnd==null){el.innerHTML='';return;}const d=(p.t0??p.tEnd)-p.tEnd;
+    el.innerHTML=`<p style="margin-top:10px">${d>0?`🎉 Bajaste de ${p.t0} a ${p.tEnd}. Ponerle nombre y entenderlo ayudó.`:d===0?'Se mantuvo igual. Está bien: tu plan de cuidado puede ayudar en las próximas horas.':'Subió un poco. A veces pasa al mirar de frente lo que duele; usa tu plan de cuidado.'}</p>`;
+    if(d>0&&award('dropI'+i,Math.min(30,d*5),el)&&d>=3)badge('bajo');};
+  bindThermo(app,'tE',p.g,v=>{p.tEnd=v;save();paintEnd();updateNav();});
+  paintEnd();
+  setGate(()=>{
+    if(diario&&p.express==null)return{ok:false,msg:'Elige si quieres expresarlo a alguien',focus:'#exc'};
+    if(p.tEnd==null)return{ok:false,msg:'Vuelve a medir cómo estás',focus:'#thE'};
+    return{ok:true,label:'💾 Guardar y terminar',onNext:finish};
+  });
+};
+
+/* ================= mis patrones ================= */
+function openPatterns(){
+  openSheet();
+  const rows=histRows();
+  let body='';
+  if(!rows.length)body=`<div class="card soft center"><p>Aún no hay registros.</p><p class="hint">Cada vez que termines una sesión (por ejemplo «¿Cómo me siento hoy?») se guarda aquí y empiezas a ver tus patrones.</p></div>`;
+  else{
+    const tot=rows.length,byFam=WHEEL.map(F=>({F,n:rows.filter(r=>r.fam===F.k).length})).filter(x=>x.n).sort((a,b)=>b.n-a.n),max=byFam[0].n;
+    const drops=rows.filter(r=>r.t0!=null&&r.tEnd!=null).map(r=>r.t0-r.tEnd),avg=drops.length?drops.reduce((a,b)=>a+b,0)/drops.length:null;
+    const needC={};rows.forEach(r=>(r.needs||[]).forEach(n=>needC[n]=(needC[n]||0)+1));const needs=Object.entries(needC).sort((a,b)=>b[1]-a[1]).slice(0,5);
+    const trigs={};rows.filter(r=>r.trig).forEach(r=>{(trigs[r.trig]=trigs[r.trig]||{});trigs[r.trig][r.fam]=(trigs[r.trig][r.fam]||0)+1;});
+    const trigList=Object.entries(trigs).map(([t,fs])=>{const[fk,n]=Object.entries(fs).sort((a,b)=>b[1]-a[1])[0];return{t,F:WHEEL.find(F=>F.k===fk),n,tot:Object.values(fs).reduce((a,b)=>a+b,0)};}).sort((a,b)=>b.tot-a.tot);
+    const top=byFam[0];
+    const ins=[`Tu emoción más frecuente es <b>${esc(top.F.n.toLowerCase())}</b> (${Math.round(top.n/tot*100)} % de tus registros).`];
+    if(avg!=null&&avg>0)ins.push(`En promedio, tu intensidad baja <b>${avg.toFixed(1)} puntos</b> después de cada sesión.`);
+    if(trigList.length)ins.push(`Cuando el tema es <b>${esc(trigList[0].t.toLowerCase())}</b>, sueles sentir <b>${esc(trigList[0].F.n.toLowerCase())}</b>.`);
+    if(needs.length)ins.push(`Lo que más necesitas es <b>${esc(gx(needs[0][0],P(0).g).toLowerCase())}</b>: vale la pena cuidarlo antes de que falte.`);
+    const last=rows.slice(-12),W=300,H=130,px=k=>18+k*(W-30)/Math.max(1,last.length-1),py=v=>12+(10-v)*(H-30)/10;
+    const line=key=>last.map((r,k)=>r[key]!=null?[px(k),py(r[key])]:null).filter(Boolean);
+    const pts0=line('t0'),pts1=line('tEnd');
+    const poly=(pts,c)=>pts.length>1?`<polyline points="${pts.map(p=>p.join(',')).join(' ')}" fill="none" stroke="${c}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`:'';
+    const dots=(key,c,lbl)=>last.map((r,k)=>r[key]!=null?`<circle cx="${px(k)}" cy="${py(r[key])}" r="4" fill="${c}" stroke="var(--surface)" stroke-width="2"><title>${new Date(r.date).toLocaleDateString('es',{day:'numeric',month:'short'})} · ${lbl}: ${r[key]}</title></circle>`:'').join('');
+    body=`<div class="card"><h3>🔎 Lo que dicen tus registros</h3><ul class="tips">${ins.map(x=>`<li>${x}</li>`).join('')}</ul><p class="hint">${tot} registro${tot>1?'s':''} en total.</p></div>
+    <div class="card"><h3>Emociones más frecuentes</h3>${byFam.map(({F,n})=>`<div class="pbar" title="${F.n}: ${n}"><span class="pl">${F.e} ${F.n}</span><div class="ptrack"><i style="width:${n/max*100}%;background:${F.c}"></i></div><span class="pv">${n}</span></div>`).join('')}</div>
+    ${last.length>1?`<div class="card"><h3>Intensidad en tus últimas sesiones</h3><div class="legend"><span><i style="background:var(--warm)"></i>Al empezar</span><span><i style="background:var(--accent)"></i>Al terminar</span></div>
+      <svg viewBox="0 0 ${W} ${H}" class="chart" role="img" aria-label="Intensidad al empezar y al terminar en las últimas sesiones">${[0,5,10].map(v=>`<line x1="14" x2="${W-6}" y1="${py(v)}" y2="${py(v)}" stroke="var(--line)" stroke-width="1"/><text x="2" y="${py(v)+3}" class="ax">${v}</text>`).join('')}${poly(pts0,'var(--warm)')}${poly(pts1,'var(--accent)')}${dots('t0','var(--warm)','Al empezar')}${dots('tEnd','var(--accent)','Al terminar')}</svg><p class="hint">Toca un punto para ver la fecha.</p></div>`:''}
+    ${needs.length?`<div class="card"><h3>Lo que más necesitas</h3><div class="chips sm">${needs.map(([n,c])=>`<span class="chip static">${esc(gx(n,P(0).g))} · ${c}</span>`).join('')}</div></div>`:''}
+    ${trigList.length?`<div class="card"><h3>Qué te activa</h3><ul class="saved">${trigList.map(x=>`<li><span>${esc(x.t)}</span><span style="margin-left:auto;font-weight:700">${x.F.e} ${esc(x.F.n)} <span class="hint">(${x.n} de ${x.tot})</span></span></li>`).join('')}</ul></div>`:''}
+    <details class="card"><summary>Ver todos los registros</summary><ul class="hist">${rows.slice().reverse().map(r=>{const F=WHEEL.find(f=>f.k===r.fam);return`<li><b>${esc(new Date(r.date).toLocaleDateString('es',{day:'numeric',month:'short',year:'numeric'}))}</b> · ${F.e} ${esc(r.word||F.n)}${r.trig?` · ${esc(r.trig)}`:''} · ${r.t0??'–'} → ${r.tEnd??'–'}</li>`;}).join('')}</ul></details>`;
+  }
+  ov.innerHTML=`<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="patT"><div class="sheet-head"><h2 id="patT">📊 Mis patrones</h2><button type="button" class="icon-btn" id="patX" aria-label="Cerrar">✕</button></div>${body}</div>`;
+  $('#patX').onclick=closeSheet;
+}
 
 /* ================= pausa y rueda libre ================= */
 let ovTimers=[];
@@ -1501,6 +1692,7 @@ ov.addEventListener('click',e=>{if(e.target===ov)closeSheet();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!ov.hidden)closeSheet();});
 $('#pauseBtn').onclick=openPause;
 $('#wheelBtn').onclick=openWheel;
+$('#patBtn').onclick=openPatterns;
 $('#xp').onclick=()=>toast(`💗 ${S.xp} corazones · ${S.badges.length} de ${Object.keys(BADGES).length} logros`);
 setInterval(()=>{const b=$('#pauseBtn');b.textContent=S.pauseUntil&&S.pauseUntil>Date.now()?'⏸ '+fmt(S.pauseUntil-Date.now()):'Pausa';},1000);
 
